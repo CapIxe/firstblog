@@ -1,0 +1,13 @@
+{# src/IXE83/BlogBundle/Resources/views/layout.html.twig #}
+
+{% extends '::base.html.twig' %}
+
+{% block stylesheets%}
+	{{ parent() }}
+	<link href="{{asset('bundles/ixe83blog/css/blog.css')}}" type="text/css" rel="stylesheet">
+	<link href="{{asset('bundles/ixe83blog/css/sidebar.css')}}" type="text/css" rel="stylesheet">
+{%endblock%}
+
+{% block sidebar %}
+    {{ render(controller('IXE83BlogBundle:Page:sidebar')) }}
+{% endblock %}

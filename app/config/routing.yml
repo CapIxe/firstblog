@@ -1,0 +1,17 @@
+ixe83_blog:
+    resource: "@IXE83BlogBundle/Resources/config/routing.yml"
+    prefix:   /
+
+
+user_registration:
+    path:     /register
+    defaults: { _controller: IXE83BlogBundle:Registration:register }
+    
+admin_area:
+    resource: "@SonataAdminBundle/Resources/config/routing/sonata_admin.xml"
+    prefix: /admin
+    
+_sonata_admin:
+    resource: .
+    type: sonata_admin
+    prefix: /admin

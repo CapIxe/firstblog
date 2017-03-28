@@ -1,0 +1,60 @@
+IXE83_blog_post:
+    resource: "@IXE83BlogBundle/Resources/config/routing/post.yml"
+    prefix:   /post
+
+    
+# src/IXE83/BlogBundle/Resources/config/routing.yml
+IXE83BlogBundle_homepage:
+    path:     /
+    defaults: { _controller: "IXE83BlogBundle:Page:index" }
+    requirements:
+         methods:  GET
+         
+# src/IXE83/BlogBundle/Resources/config/routing.yml
+IXE83BlogBundle_about:
+    path:   /about
+    defaults: { _controller: "IXE83BlogBundle:Page:about" }
+    requirements:
+         methods:  GET
+# src/IXE83/BlogBundle/Resources/config/routing.yml
+IXE83BlogBundle_contact:
+    path:   /contact
+    defaults: { _controller: "IXE83BlogBundle:Page:contact" }
+    requirements:
+         methods:  GET|POST
+# src/IXE83/BlogBundle/Resources/config/routing.yml
+IXE83BlogBundle_blog_show:
+    path: /{id}/{slug}
+    defaults: { _controller:"IXE83BlogBundle:Blog:show" }
+    requirements:
+        methods: GET
+        id: \d+
+        
+IXE83BlogBundle_comment_create:
+    path: /comment/{blog_id}
+    defaults: {_controller: "IXE83BlogBundle:Comment:create" }
+    requirements: 
+        methods: POST
+        blog_id: \d+
+
+# src/IXE83/BlogBundle/Resources/config/routing.yml
+IXE83BlogBundle_newpost:
+    path: /new
+    defaults: { _controller:"IXE83BlogBundle:Blog:new" }
+    requirements:
+        methods: GET|POST
+        
+# src/IXE83/BlogBundle/Resources/config/routing.yml
+IXE83BlogBundle_blog_edit:
+    path: /{id}/edit/
+    defaults: { _controller:"IXE83BlogBundle:Blog:edit" }
+    requirements:
+        methods: GET|POST
+
+# src/IXE83/BlogBundle/Resources/config/routing.yml
+IXE83BlogBundle_blog_delete:
+    path: /{id}/delete/
+    defaults: { _controller:"IXE83BlogBundle:Blog:delete" }
+    requirements:
+        methods: DELETE
+                     

@@ -1,0 +1,12 @@
+{# IXE83/BlogBundle/Resources/views/registration/register.html.twig #}
+{% extends 'IXE83BlogBundle::layout.html.twig' %}
+
+{% block body %}
+	<h1>Welcome to Symblog</h1>
+	<h3>Please register</h3>
+	{{form_start(form, {'attr':{'class':'blogger'} })}}
+		{{form_widget(form)}}
+		
+		<button type="submit">Register!</button>
+	{{form_end(form)}}
+{% endblock %}

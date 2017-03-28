@@ -1,0 +1,4 @@
+# src/IXE83/BlogBundle/Resources/config/config.yml
+parameters:
+    # Blogger contact email address
+    ixe83_blog.emails.contact_email: contact@email.com

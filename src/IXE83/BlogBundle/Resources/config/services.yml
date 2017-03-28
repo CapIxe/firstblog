@@ -1,0 +1,4 @@
+services:
+#    ixe83_blog.example:
+#        class: IXE83\BlogBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]
