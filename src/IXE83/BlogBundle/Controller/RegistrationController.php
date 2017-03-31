@@ -16,7 +16,7 @@ class RegistrationController extends Controller
 	*/
 	public function registerAction(Request $request)
 	{
-		// buil form
+		// build form
 		$user = new User();
 		$form = $this->createForm(UserType::class, $user);
 		// handle the submit (will only happen on POST)
@@ -36,7 +36,7 @@ class RegistrationController extends Controller
 			// ... do any other work - like sending them an email, etc
             // maybe set a "flash" success message for the user
 			
-			return $this->redirectToRoute('IXE83BlogBundle_homepage');
+			return $this->redirectToRoute('IXE83BlogBundle_login');
 		}
 		return $this->render('IXE83BlogBundle:Registration:register.html.twig', array(
 			'form' => $form->createView()));

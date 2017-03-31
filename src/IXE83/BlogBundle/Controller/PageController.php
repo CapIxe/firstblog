@@ -13,26 +13,27 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
 class PageController extends Controller
 {
 	
-    public function indexAction($page)
+    public function indexAction(Request $request)
     {
 		$em = $this->getDoctrine()->getManager();
 		
 		$blogs = $em->getRepository('IXE83BlogBundle:Blog')
 					->getLatestBlogs();
+		$dql   = "SELECT b FROM IXE83BlogBundle:Blog b";
+		$query = $em->createQuery($dql);
+		/**
+		* @var $paginator |Knp|Component|Pager|Paginator
+		*/
+		$paginator = $this->get('knp_paginator');
+		$pagination = $paginator->paginate(
+			$query,
+			$request->query->getInt('page', 1),5
+			//$request->query->getInt('limit', 5)
+		);
 		
-		/*$dql = "SELECT p, c FROM BlogPost p JOIN p.comments c";
-		$query = $entityManager->createQuery($dql)
-							   ->setFirstResult(0)
-							   ->setMaxResults(100);
-
-		$paginator = new Paginator($query, $fetchJoinCollection = true);
-
-		$c = count($paginator);
-		foreach ($paginator as $post) {
-			echo $post->getHeadline() . "\n";*/
 		
         return $this->render('IXE83BlogBundle:Page:index.html.twig', array(
-			'blogs' => $blogs
+			'blogs' => $pagination
 		));
     }
 	

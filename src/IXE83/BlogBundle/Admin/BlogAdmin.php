@@ -22,7 +22,7 @@ class BlogAdmin extends AbstractAdmin
 			->add('updated', 'date')
 			->add('slug', 'text')
 			->add('category', 'entity', array(
-				'class'=>'IXE83\BlogBundle\Entity\Cateory',
+				'class'=>'IXE83\BlogBundle\Entity\Category',
 				'choice_label'=>'name'))
 				;
     }

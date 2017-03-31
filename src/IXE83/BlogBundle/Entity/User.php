@@ -22,7 +22,14 @@ class User implements UserInterface, \Serializable
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;
+	
+	/**
+     * @var string
+     *
+     * @ORM\Column(name="username", type="string", length=64)
+     */
+    protected $username;
 
     /**
      * @var string
@@ -31,26 +38,39 @@ class User implements UserInterface, \Serializable
 	 * @Assert\NotBlank()
 	 * @Assert\Email()
      */
-    private $email;
+    protected $email;
+	
+	
 
     /**
      * @Assert\NotBlank()
      *
      * @Assert\Length(max=4096)
      */
-    private $plainPassword;
+    protected $plainPassword;
 
     /**
      * @var string
      *
      * @ORM\Column(name="password", type="string", length=64)
      */
-    private $password;
+    protected $password;
+	
+	/**
+     * @ORM\ManyToMany(targetEntity="Role")
+     * @ORM\JoinTable(name="user_role",
+     *     joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
+     *     inverseJoinColumns={@ORM\JoinColumn(name="role_id", referencedColumnName="id")}
+     * )
+     *
+     * @var ArrayCollection $userRoles
+     */
+    protected $userRoles;
 	
 	/**
 	* @ORM\Column(name="is_active", type="boolean")
 	*/
-	private $isActive;
+	protected $isActive;
 	
 	
 	public function __construct()
@@ -91,7 +111,7 @@ class User implements UserInterface, \Serializable
      */
     public function getUsername()
     {
-        return $this->email;
+        return $this->username;
     }
 
     /**
@@ -149,6 +169,9 @@ class User implements UserInterface, \Serializable
         return null;
 	}
 	
+	/**
+     * @return array An array of Role objects
+     */
 	public function getRoles()
 	{
 		return array('ROLE_USER');
