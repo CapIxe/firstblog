@@ -26,7 +26,9 @@
 	{% else %}
 		<p>There are no blog entries for symblog</p>
 	{% endfor %}
-	<div class="navigation">
-		{{ knp_pagination_render(blogs) }}
-	</div> 
+	<div class="center">
+		<div class="pagination">
+			{{ knp_pagination_render(blogs) }}
+		</div>
+	</div>
 {% endblock %}

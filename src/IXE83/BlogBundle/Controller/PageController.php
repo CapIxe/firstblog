@@ -19,17 +19,15 @@ class PageController extends Controller
 		
 		$blogs = $em->getRepository('IXE83BlogBundle:Blog')
 					->getLatestBlogs();
-		$dql   = "SELECT b FROM IXE83BlogBundle:Blog b";
-		$query = $em->createQuery($dql);
+				
 		/**
 		* @var $paginator |Knp|Component|Pager|Paginator
 		*/
 		$paginator = $this->get('knp_paginator');
 		$pagination = $paginator->paginate(
-			$query,
-			$request->query->getInt('page', 1),5
-			//$request->query->getInt('limit', 5)
-		);
+			$blogs,
+			$request->query->getInt('page', 1),5 
+			);
 		
 		
         return $this->render('IXE83BlogBundle:Page:index.html.twig', array(

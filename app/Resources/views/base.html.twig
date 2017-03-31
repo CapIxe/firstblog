@@ -7,10 +7,13 @@
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
     {% block stylesheets %}
-        <link href='http://fonts.googleapis.com/css?family=Irish+Grover' rel='stylesheet' type='text/css'>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css"> 
+		<link href='http://fonts.googleapis.com/css?family=Irish+Grover' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=La+Belle+Aurore' rel='stylesheet' type='text/css'>
         <link href="{{ asset('css/screen.css') }}" type="text/css" rel="stylesheet" />
     {% endblock %}
+	
     <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
 </head>
 <body>
@@ -18,7 +21,7 @@
 <section id="wrapper">
     <header id="header">
         <div class="top">
-		{% block user %}{% endblock %}
+		{% block user %}<p>Wellcome</p>{% endblock %}
             {% block navigation %}
                 <nav>
                     <ul class="navigation">
@@ -51,6 +54,8 @@
     </div>
 </section>
 
-{% block javascripts %}{% endblock %}
+{% block javascripts %}
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+{% endblock %}
 </body>
 </html>
