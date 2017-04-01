@@ -16,8 +16,9 @@ class BlogRepository extends \Doctrine\ORM\EntityRepository
     {
         $qb = $this->createQueryBuilder('b')
             ->select('b, c')
+			->where('b.status = true' )
 			->leftJoin('b.comments', 'c')
-            ->addOrderBy('b.created', 'DESC');
+            ->orderBy('b.created', 'DESC');
 
         if (false === is_null($limit))
             $qb->setMaxResults($limit);

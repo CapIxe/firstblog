@@ -13,6 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 /**
 * Blog controller
@@ -52,7 +53,8 @@ class BlogController extends Controller
 						->add('blog', TextareaType::class)
 						->add('image', FileType::class)
 						->add('tags', TextType::class)
-						->add('save', SubmitType::class, array('label'=>'Save post'))
+						->add('status', ChoiceType::class, array('choices'=>array('publish'=> true, 'draft'=>false,)))
+						->add('save', SubmitType::class, array('label'=>'Add post'))
 						->getForm();
 		$blog->setSlug($blog->getTitle());
 						
@@ -97,6 +99,7 @@ class BlogController extends Controller
 						->add('title', TextType::class)
 						->add('blog', TextareaType::class)
 						->add('tags', TextType::class)
+						->add('status', ChoiceType::class, array('choices'=>array('publish'=> true, 'draft'=>false,)))
 						->add('save', SubmitType::class, array('label'=>'Save changes'))
 						->getForm();
 		$editForm->handleRequest($request);

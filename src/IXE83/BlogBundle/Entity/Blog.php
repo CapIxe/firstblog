@@ -92,9 +92,9 @@ class Blog
 	/**
 	* @var bool
 	*
-	* @ORM\Column(name="draft", type="boolean")
+	* @ORM\Column(name="status", type="boolean")
 	*/
-	private $draft = false;
+	public $status = false;
 	
     /**
      * Get id
@@ -226,6 +226,28 @@ class Blog
         return $this->tags;
     }
 	
+	/**
+	* Set status
+	*
+	* @param boolean $status
+	*
+	* return Status
+	*/
+	public function setStatus($status)
+	{
+		$this->status = $status;
+	}
+	
+	/**
+     * Get status
+     *
+     * @return boolean
+     */
+	 public function getStatus()
+	 {
+		 return $this->status;
+	 }
+	 
     /**
      * Set comments
      *
