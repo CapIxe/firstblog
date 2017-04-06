@@ -57,4 +57,28 @@ IXE83BlogBundle_blog_delete:
     defaults: { _controller:"IXE83BlogBundle:Blog:delete" }
     requirements:
         methods: DELETE
-                     
+        
+category_index:
+    path:     /category/
+    defaults: { _controller: "IXE83BlogBundle:Category:index" }
+    methods:  GET
+
+category_show:
+    path:     /category/{name}/show
+    defaults: { _controller: "IXE83BlogBundle:Category:show" }
+    methods:  GET
+
+category_new:
+    path:     /category/new
+    defaults: { _controller: "IXE83BlogBundle:Category:new" }
+    methods:  [GET, POST]
+
+category_edit:
+    path:     /category/{name}/edit
+    defaults: { _controller: "IXE83BlogBundle:Category:edit" }
+    methods:  [GET, POST]
+
+category_delete:
+    path:     /category/delete
+    defaults: { _controller: "IXE83BlogBundle:Category:delete" }
+    methods:  DELETE                     

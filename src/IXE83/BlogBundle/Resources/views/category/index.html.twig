@@ -1,0 +1,20 @@
+{% extends 'IXE83BlogBundle::layout.html.twig' %}
+
+{% block body %}
+	<header>		
+		<h2>Categories list</h2>
+	</header>
+	<div class="blog">
+		{% for category in categories %}
+		<ul class="category">
+			<li class="column1">{{ category.name }}</li>
+			<li class="column2"><a href="{{ path('category_edit', { 'id': category.id, 'name': category.name }) }}">edit</a></li>		
+		</ul>
+		{% endfor %}	
+	</div>
+    <ul>
+        <li>
+            <a href="{{ path('category_new') }}">Create a new category</a>
+        </li>
+    </ul>
+{% endblock %}

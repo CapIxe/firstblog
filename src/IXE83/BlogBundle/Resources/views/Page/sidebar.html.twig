@@ -2,7 +2,7 @@
 
 <section class="section">
 	<header>
-		<h3>Tag Cloud</h3>
+		<h3>Tags</h3>
 	</header>
 	<p class="tags">
 		{% for tag, weight in tags %}
@@ -11,4 +11,10 @@
 			<p>There are no tags</p>
 		{% endfor %}
 	</p>
+	<h3><a href="{{ path('category_index') }}">Categories</a></h3>
+	{% for category in categories %}
+			<div>
+				<p><a href="{{path('category_show', { 'id': category.id, 'name': category.name}) }}">{{ category.name }}</a></p>
+			</div>
+	{% endfor %}
 </section>

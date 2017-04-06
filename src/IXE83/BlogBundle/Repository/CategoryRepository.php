@@ -10,4 +10,15 @@ namespace IXE83\BlogBundle\Repository;
  */
 class CategoryRepository extends \Doctrine\ORM\EntityRepository
 {
+	public function getCategory($limit = null)
+	{
+		$qb = $this->createQuery(
+		'SELECT name FROM IXE83BlogBundle:Category c');
+
+        if (false === is_null($limit))
+            $qb->setMaxResults($limit);
+
+        return $qb->getQuery()
+            ->getResult();
+	}
 }

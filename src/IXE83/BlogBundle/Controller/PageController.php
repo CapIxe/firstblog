@@ -77,8 +77,12 @@ class PageController extends Controller
 		
 		$tagWeights = $em->getRepository('IXE83BlogBundle:Blog')->getTagWeights($tags);
 		
+		$categories = $em->getRepository('IXE83BlogBundle:Category')->findAll();
+		
 		return $this->render('IXE83BlogBundle:Page:sidebar.html.twig', array(
-			'tags' => $tagWeights
+			'tags' => $tagWeights,
+			'categories'=> $categories,
 		));
+		
 	}
 }

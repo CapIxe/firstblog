@@ -6,14 +6,14 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class PostType extends AbstractType
+class CategoryType extends AbstractType
 {
     /**
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('title')->add('description')->add('content')->add('createdAt')->add('updatedAt')        ;
+        $builder->add('name')        ;
     }
     
     /**
@@ -22,7 +22,7 @@ class PostType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'IXE83\BlogBundle\Entity\Post'
+            'data_class' => 'IXE83\BlogBundle\Entity\Category'
         ));
     }
 
@@ -31,7 +31,7 @@ class PostType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'ixe83_blogbundle_post';
+        return 'ixe83_blogbundle_category';
     }
 
 

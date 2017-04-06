@@ -23,7 +23,8 @@ class Category
     private $id;
 
 	/**
-    * @ORM\OneToMany(targetEntity="Blog", mappedBy="category")
+    * @ORM\OneToMany(targetEntity="Blog", mappedBy="category_id")
+	* 
     */
     private $blogPosts;
 
@@ -32,11 +33,11 @@ class Category
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255)
+	 * 
      */
     private $name;
-
-
-    /**
+	
+	/**
      * Get id
      *
      * @return int
@@ -79,5 +80,10 @@ class Category
     {
         return $this->name;
     }
+	
+	public function __toString()
+	{
+	  return $this->getName() ? $this->getName() : "";
+	}
 }
 

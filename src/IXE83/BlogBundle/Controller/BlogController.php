@@ -4,8 +4,10 @@
 namespace IXE83\BlogBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use IXE83\BlogBundle\Entity\Blog;
+use IXE83\BlogBundle\Entity\Category;
 use IXE83\BlogBundle\Form\BlogType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -43,8 +45,14 @@ class BlogController extends Controller
 		));
 	}
 	
+	/**
+	* @Security("has_role('ROLE_USER')")
+	*/
 	public function newAction(Request $request)
 	{
+		$em = $this->getDoctrine()->getManager();
+		//$categories = $em->getRepository('IXE83BlogBundle:Category')->findAll();
+		
 		$blog = new Blog;
 		$blog->setAuthor('Alex');
 		$blog->setCreated(new \DateTime('now'));
@@ -53,6 +61,7 @@ class BlogController extends Controller
 						->add('blog', TextareaType::class)
 						->add('image', FileType::class)
 						->add('tags', TextType::class)
+						->add('category', ChoiceType::class, array( 'choices'=>$blog->getCategory()))
 						->add('status', ChoiceType::class, array('choices'=>array('publish'=> true, 'draft'=>false,)))
 						->add('save', SubmitType::class, array('label'=>'Add post'))
 						->getForm();
@@ -78,6 +87,9 @@ class BlogController extends Controller
 		));
 	}
 	
+	/**
+	* @Security("has_role('ROLE_USER')")
+	*/
 	public function deleteAction(Request $request, Blog $blog)
 	{
 		$form = $this->createDeleteForm($blog);
@@ -91,6 +103,9 @@ class BlogController extends Controller
 		return $this->redirectToRoute('IXE83BlogBundle_homepage');
 	}
 	
+	/**
+	* @Security("has_role('ROLE_USER')")
+	*/
 	public function editAction(Request $request, Blog $blog)
 	{
 		$deleteForm = $this->createDeleteForm($blog);
