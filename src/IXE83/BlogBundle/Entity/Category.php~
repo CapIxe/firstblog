@@ -84,30 +84,7 @@ class Category
 	
 	public function __toString()
 	{
-	  return $this->getName();
+	  return $this->getName() ? $this->getName() : "";
 	}
-
-    /**
-     * Add blogPost
-     *
-     * @param \IXE83\BlogBundle\Entity\Blog $blogPost
-     *
-     * @return Category
-     */
-    public function addBlogPost(\IXE83\BlogBundle\Entity\Blog $blogPost)
-    {
-        $this->blogPosts[] = $blogPost;
-
-        return $this;
-    }
-
-    /**
-     * Remove blogPost
-     *
-     * @param \IXE83\BlogBundle\Entity\Blog $blogPost
-     */
-    public function removeBlogPost(\IXE83\BlogBundle\Entity\Blog $blogPost)
-    {
-        $this->blogPosts->removeElement($blogPost);
-    }
 }
+

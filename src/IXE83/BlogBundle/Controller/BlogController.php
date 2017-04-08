@@ -16,6 +16,7 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 /**
 * Blog controller
@@ -51,7 +52,14 @@ class BlogController extends Controller
 	public function newAction(Request $request)
 	{
 		$em = $this->getDoctrine()->getManager();
-		//$categories = $em->getRepository('IXE83BlogBundle:Category')->findAll();
+		//$categories = $em->getRepository('IXE83BlogBundle:Category')->getCategory();
+		//foreach ($categories as $category)
+		//{
+		//	$name = $category('name');
+		//}
+		//$query = $em->createQuery('SELECT c.name FROM IXE83BlogBundle:Category c');
+		//$name = $query->getResult();
+		//var_dump($name);
 		
 		$blog = new Blog;
 		$blog->setAuthor('Alex');
@@ -61,7 +69,9 @@ class BlogController extends Controller
 						->add('blog', TextareaType::class)
 						->add('image', FileType::class)
 						->add('tags', TextType::class)
-						->add('category', ChoiceType::class, array( 'choices'=>$blog->getCategory()))
+						->add('category', EntityType::class, array(
+										'class'=>'IXE83BlogBundle:Category' ,
+										'choice_label'=> 'name',))
 						->add('status', ChoiceType::class, array('choices'=>array('publish'=> true, 'draft'=>false,)))
 						->add('save', SubmitType::class, array('label'=>'Add post'))
 						->getForm();
@@ -114,6 +124,9 @@ class BlogController extends Controller
 						->add('title', TextType::class)
 						->add('blog', TextareaType::class)
 						->add('tags', TextType::class)
+						->add('category', EntityType::class, array(
+										'class'=>'IXE83BlogBundle:Category' ,
+										'choice_label'=> 'name',))
 						->add('status', ChoiceType::class, array('choices'=>array('publish'=> true, 'draft'=>false,)))
 						->add('save', SubmitType::class, array('label'=>'Save changes'))
 						->getForm();

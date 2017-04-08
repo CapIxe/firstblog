@@ -5,6 +5,7 @@ namespace IXE83\BlogBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 
 /**
@@ -85,8 +86,8 @@ class Blog
     protected $slug;
 	
 	/**
-	* @ORM\ManyToOne(targetEntity="Category", inversedBy="name")
-	* @JoinColumn(name="category_id", referencedColumnName="id")
+	* @ORM\ManyToOne(targetEntity="Category", inversedBy="blogPosts")
+	* @ORM\JoinColumn(name="category_id", referencedColumnName="id")
 	*/
 	private $category;
 	

@@ -5,6 +5,7 @@ namespace IXE83\BlogBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 
 /**
@@ -49,7 +50,7 @@ class Blog
     /**
      * @var string
      *
-     * @ORM\Column(name="image", type="string", length=20)
+     * @ORM\Column(name="image", type="string", length=40)
      */
     protected $image;
 	
@@ -84,6 +85,19 @@ class Blog
      */
     protected $slug;
 	
+	/**
+	* @ORM\ManyToOne(targetEntity="Category", inversedBy="blogPosts")
+	* @ORM\JoinColumn(name="category_id", referencedColumnName="id")
+	*/
+	private $category;
+	
+	/**
+	* @var bool
+	*
+	* @ORM\Column(name="status", type="boolean")
+	*/
+	public $status = false;
+	
     /**
      * Get id
      *
@@ -104,8 +118,7 @@ class Blog
     public function setTitle($title)
     {
         $this->title = $title;
-
-        return $this;
+		$this->setSlug($this->title);
     }
 
     /**
@@ -215,6 +228,28 @@ class Blog
         return $this->tags;
     }
 	
+	/**
+	* Set status
+	*
+	* @param boolean $status
+	*
+	* return Status
+	*/
+	public function setStatus($status)
+	{
+		$this->status = $status;
+	}
+	
+	/**
+     * Get status
+     *
+     * @return boolean
+     */
+	 public function getStatus()
+	 {
+		 return $this->status;
+	 }
+	 
     /**
      * Set comments
      *
@@ -330,5 +365,64 @@ class Blog
 	public function __toString()
 	{
 		return $this->getTitle();
+	}
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     *
+     * @return Blog
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $this->slugify($slug);
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+	
+	public function setCategory(Category $category)
+	{
+		$this->category = $category;
+	}
+	
+	public function getCategory()
+	{
+		return $this->category;
+	}
+	
+	public function slugify($text)
+	{
+		// replace non letter or digits by -
+		$text = preg_replace('#[^\\pL\d]+#u', '-', $text);
+	
+		//trim
+		$text = trim($text, '-');
+		
+		//transliterate
+		if(function_exists('iconv'))
+		{
+			$text = iconv('utf-8','us-ascii//TRANSLIT', $text);
+		}
+		
+		// lowercase
+		$text = strtolower($text);
+		
+		// remove unwanted characters
+		$text = preg_replace('#[^-\w]+#', '', $text);
+		
+		if(empty($text))
+		{
+			return 'n-a';
+		}
+	return $text;
 	}
 }

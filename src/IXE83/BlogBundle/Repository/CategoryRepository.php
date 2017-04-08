@@ -1,6 +1,7 @@
 <?php
 
 namespace IXE83\BlogBundle\Repository;
+use Doctrine\ORM\EntityRepository;
 
 /**
  * CategoryRepository
@@ -10,15 +11,12 @@ namespace IXE83\BlogBundle\Repository;
  */
 class CategoryRepository extends \Doctrine\ORM\EntityRepository
 {
-	public function getCategory($limit = null)
+	public function getCategory()
 	{
-		$qb = $this->createQuery(
-		'SELECT name FROM IXE83BlogBundle:Category c');
-
-        if (false === is_null($limit))
-            $qb->setMaxResults($limit);
-
-        return $qb->getQuery()
-            ->getResult();
+		return $this->getEntityManager()->createQuery(
+		'SELECT c.name FROM IXE83BlogBundle:Category c')
+		->getResult();
 	}
+	
+	
 }
