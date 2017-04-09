@@ -6,9 +6,7 @@ ixe83_blog:
     prefix:   /
 
 
-user_registration:
-    path:     /register
-    defaults: { _controller: IXE83BlogBundle:Registration:register }
+
     
 
     

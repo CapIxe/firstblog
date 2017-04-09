@@ -7,6 +7,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use FOS\UserBundle\FOSUserEvents;
+use FOS\UserBundle\Event\GetResponseUserEvent;
+use FOS\UserBundle\Model\UserInterface;
 
 /**
  * Category controller.
@@ -25,9 +28,12 @@ class CategoryController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $categories = $em->getRepository('IXE83BlogBundle:Category')->findAll();
+		$user = $this->container->get('security.token_storage')->getToken()->getUser();
+		//$username = $userManager->getUsername();
 
         return $this->render('IXE83BlogBundle:Category:index.html.twig', array(
             'categories' => $categories,
+			'username'=>$user,
 			));
     }
 
@@ -87,7 +93,7 @@ class CategoryController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('category_edit', array('name' => $category->getName()));
+            return $this->redirectToRoute('IXE83BlogBundle_category_index');
         }
 
         return $this->render('IXE83BlogBundle:Category:edit.html.twig', array(
@@ -113,7 +119,7 @@ class CategoryController extends Controller
             $em->flush($category);
         }
 
-        return $this->redirectToRoute('category_index');
+        return $this->redirectToRoute('IXE83BlogBundle_category_index');
     }
 
     /**

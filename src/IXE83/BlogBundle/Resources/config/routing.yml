@@ -58,7 +58,7 @@ IXE83BlogBundle_blog_delete:
     requirements:
         methods: DELETE
         
-category_index:
+IXE83BlogBundle_category_index:
     path:     /category/
     defaults: { _controller: "IXE83BlogBundle:Category:index" }
     methods:  GET

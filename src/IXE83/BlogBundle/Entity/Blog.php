@@ -389,15 +389,7 @@ class Blog
         return $this->slug;
     }
 	
-	public function setCategory(Category $category)
-	{
-		$this->category = $category;
-	}
 	
-	public function getCategory()
-	{
-		return $this->category;
-	}
 	
 	public function slugify($text)
 	{
