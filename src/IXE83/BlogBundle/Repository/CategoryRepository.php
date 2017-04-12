@@ -11,12 +11,6 @@ use Doctrine\ORM\EntityRepository;
  */
 class CategoryRepository extends \Doctrine\ORM\EntityRepository
 {
-	public function getCategory()
-	{
-		return $this->getEntityManager()->createQuery(
-		'SELECT c.name FROM IXE83BlogBundle:Category c')
-		->getResult();
-	}
 	
 	
 }

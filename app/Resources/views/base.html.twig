@@ -21,7 +21,7 @@
 <section id="wrapper">
     <header id="header">
         <div class="top">
-		{% block user %}{% endblock %}
+		{% block user %}<p class="wellcome">Wellcome, {{ app.user.username }}!</p>{% endblock %}
             {% block navigation %}
                 <nav>
                     <ul class="navigation">

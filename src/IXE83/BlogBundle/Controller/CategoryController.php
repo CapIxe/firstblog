@@ -29,7 +29,7 @@ class CategoryController extends Controller
 
         $categories = $em->getRepository('IXE83BlogBundle:Category')->findAll();
 		$user = $this->container->get('security.token_storage')->getToken()->getUser();
-		//$username = $userManager->getUsername();
+		
 
         return $this->render('IXE83BlogBundle:Category:index.html.twig', array(
             'categories' => $categories,
@@ -69,15 +69,27 @@ class CategoryController extends Controller
      * Finds and displays a category entity.
      * @Security("has_role('ROLE_USER')")
      */
-    public function showAction(Category $category)
+    public function showAction(Request $request, $id)
     {
-        $deleteForm = $this->createDeleteForm($category);
-
-        return $this->render('IXE83BlogBundle:Category:show.html.twig', array(
-            'category' => $category,
-			'name' =>$category->getName(),
-            'delete_form' => $deleteForm->createView(),
-        ));
+        $em = $this->getDoctrine()->getManager();
+		
+		$blogs = $em->getRepository('IXE83BlogBundle:Blog')
+					->getCategoryBlogs($id);
+					
+						
+		/**
+		* @var $paginator |Knp|Component|Pager|Paginator
+		*/
+		$paginator = $this->get('knp_paginator');
+		$pagination = $paginator->paginate(
+			$blogs,
+			$request->query->getInt('page', 1),5 
+			);
+		
+		
+        return $this->render('IXE83BlogBundle:Page:index.html.twig', array(
+			'blogs' => $pagination
+		));
     }
 
     /**

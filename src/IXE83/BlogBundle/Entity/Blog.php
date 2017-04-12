@@ -89,7 +89,7 @@ class Blog
 	* @ORM\ManyToOne(targetEntity="Category", inversedBy="blogPosts")
 	* @ORM\JoinColumn(name="category_id", referencedColumnName="id")
 	*/
-	private $category;
+	public $category;
 	
 	/**
 	* @var bool
@@ -389,7 +389,15 @@ class Blog
         return $this->slug;
     }
 	
+	public function setCategory(Category $category)
+	{
+		$this->category = $category;
+	}
 	
+	public function getCategory()
+	{
+		return $this->category;
+	}
 	
 	public function slugify($text)
 	{

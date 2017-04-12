@@ -16,12 +16,14 @@ IXE83BlogBundle_about:
     defaults: { _controller: "IXE83BlogBundle:Page:about" }
     requirements:
          methods:  GET
+         
 # src/IXE83/BlogBundle/Resources/config/routing.yml
 IXE83BlogBundle_contact:
     path:   /contact
     defaults: { _controller: "IXE83BlogBundle:Page:contact" }
     requirements:
          methods:  GET|POST
+         
 # src/IXE83/BlogBundle/Resources/config/routing.yml
 IXE83BlogBundle_blog_show:
     path: /{id}/{slug}
@@ -63,10 +65,12 @@ IXE83BlogBundle_category_index:
     defaults: { _controller: "IXE83BlogBundle:Category:index" }
     methods:  GET
 
-category_show:
-    path:     /category/{name}/show
+IXE83BlogBundle_category_show:
+    path:     /category/{id}/{name}
     defaults: { _controller: "IXE83BlogBundle:Category:show" }
-    methods:  GET
+    requirements:
+        methods: GET
+        id: \d+
 
 category_new:
     path:     /category/new

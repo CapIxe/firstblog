@@ -14,7 +14,7 @@
 	<h3><a href="{{ path('IXE83BlogBundle_category_index') }}">Categories</a></h3>
 	{% for category in categories %}
 			<div>
-				<p><a href="{{path('category_show', { 'id': category.id, 'name': category.name}) }}">{{ category.name }}</a></p>
+				<p><a href="{{path('IXE83BlogBundle_category_show', { 'id': category.id, 'name': category.name}) }}">{{ category.name }}</a></p>
 			</div>
 	{% endfor %}
 </section>

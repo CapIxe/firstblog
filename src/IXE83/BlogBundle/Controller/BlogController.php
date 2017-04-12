@@ -32,6 +32,8 @@ class BlogController extends Controller
 		
 		$blog = $em->getRepository('IXE83BlogBundle:Blog')->find($id);
 		
+		$author = $blog->getAuthor();
+		
 		if (!$blog)
 		{
 			throw $this->createNotFoundException('Unable to find Blog post.');
@@ -39,10 +41,11 @@ class BlogController extends Controller
 		
 		$comments = $em->getRepository('IXE83BlogBundle:Comment')
 						->getCommentsForBlog($blog->getId());
-		
+						
 		return $this->render('IXE83BlogBundle:Blog:show.html.twig', array(
 			'blog' =>$blog,
-			'comments' =>$comments
+			'comments' =>$comments,
+			'user'=>$author,
 		));
 	}
 	
@@ -52,17 +55,10 @@ class BlogController extends Controller
 	public function newAction(Request $request)
 	{
 		$em = $this->getDoctrine()->getManager();
-		//$categories = $em->getRepository('IXE83BlogBundle:Category')->getCategory();
-		//foreach ($categories as $category)
-		//{
-		//	$name = $category('name');
-		//}
-		//$query = $em->createQuery('SELECT c.name FROM IXE83BlogBundle:Category c');
-		//$name = $query->getResult();
-		//var_dump($name);
+		$user = $this->container->get('security.token_storage')->getToken()->getUser();
 		
 		$blog = new Blog;
-		$blog->setAuthor('Alex');
+		$blog->setAuthor($user);
 		$blog->setCreated(new \DateTime('now'));
 		$newForm = $this->createFormBuilder($blog)
 						->add('title', TextType::class)

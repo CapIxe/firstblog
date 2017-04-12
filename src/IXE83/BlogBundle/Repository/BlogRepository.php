@@ -27,6 +27,18 @@ class BlogRepository extends \Doctrine\ORM\EntityRepository
             ->getResult();
     }
 	
+	public function getCategoryBlogs($id, $limit = null)
+    {
+        $qb = $this->createQueryBuilder('b')
+            ->select('b')
+			->where('b.status = true', 'b.category = :category_id')
+			->orderBy('b.created', 'DESC')
+			->setParameter('category_id', $id);
+
+        return $qb->getQuery()
+            ->getResult();
+    }
+	
     public function getTags()
 	{
 		$blogTags = $this->createQueryBuilder('b')
@@ -73,4 +85,5 @@ class BlogRepository extends \Doctrine\ORM\EntityRepository
 		}
 		return $tagWeights;
 	}
+	
 }
