@@ -79,7 +79,13 @@ class PageController extends Controller
 		
 		$tagWeights = $em->getRepository('IXE83BlogBundle:Blog')->getTagWeights($tags);
 		
-		$categories = $em->getRepository('IXE83BlogBundle:Category')->findAll();
+		//$categories = $em->getRepository('IXE83BlogBundle:Blog')->getActiveCategory();
+		
+		
+		$query = $em->createQuery("SELECT c FROM IXE83BlogBundle:Category c JOIN c.blog b WHERE b.status = true GROUP BY b.category");
+		
+		$categories = $query->getResult();
+		
 		
 		return $this->render('IXE83BlogBundle:Page:sidebar.html.twig', array(
 			'tags' => $tagWeights,

@@ -27,7 +27,7 @@ class Category
     * @ORM\OneToMany(targetEntity="Blog", mappedBy="category")
 	* 
     */
-    private $blogPosts;
+    private $blog;
 
     
     /**

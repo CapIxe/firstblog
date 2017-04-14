@@ -86,4 +86,9 @@ class BlogRepository extends \Doctrine\ORM\EntityRepository
 		return $tagWeights;
 	}
 	
+	public function getActiveCategory()
+	{
+		$query = $this->createQuery("SELECT c FROM IXE83BlogBundle:Category c JOIN c.blog b WHERE b.status = true GROUP BY b.category");
+		return $query->getResult(); 
+	}
 }
