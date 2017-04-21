@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use IXE83\BlogBundle\Entity\Blog;
 use IXE83\BlogBundle\Entity\Category;
 use IXE83\BlogBundle\Form\BlogType;
+use IXE83\BlogBundle\Form\Type\TagsInputType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -16,6 +17,7 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 /**
@@ -60,23 +62,18 @@ class BlogController extends Controller
 		$blog = new Blog;
 		$blog->setAuthor($user);
 		$blog->setCreated(new \DateTime('now'));
-		$newForm = $this->createFormBuilder($blog)
-						->add('title', TextType::class)
-						->add('blog', TextareaType::class)
-						->add('image', FileType::class)
-						->add('tags', TextType::class)
-						->add('category', EntityType::class, array(
-										'class'=>'IXE83BlogBundle:Category' ,
-										'choice_label'=> 'name',))
-						->add('status', ChoiceType::class, array('choices'=>array('publish'=> true, 'draft'=>false,)))
-						->add('save', SubmitType::class, array('label'=>'Add post'))
-						->getForm();
+		
+		$newForm = $this->createForm(BlogType::class, $blog)
+						->add('save', SubmitType::class, array('label'=>'Add post'));
 		$blog->setSlug($blog->getTitle());
+		
 						
 		$newForm->handleRequest($request);
 		
 		if ($newForm->isSubmitted() && $newForm->isValid()){
 			$em =$this->getDoctrine()->getManager();
+			$tags = explode(",", $blog->getTags());
+			var_dump($tags);
 			$file = $blog->getImage();
 			$fileName = md5(uniqid()).'.'.$file->guessExtension();
 			$file->move($this->getParameter('images_directory'), $fileName);
@@ -119,7 +116,7 @@ class BlogController extends Controller
 		$editForm = $this->createFormBuilder($blog)
 						->add('title', TextType::class)
 						->add('blog', TextareaType::class)
-						->add('tags', TextType::class)
+						->add('tags', TagsInputType::class)
 						->add('category', EntityType::class, array(
 										'class'=>'IXE83BlogBundle:Category' ,
 										'choice_label'=> 'name',))

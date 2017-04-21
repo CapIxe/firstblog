@@ -3,16 +3,14 @@
 namespace IXE83\BlogBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Collections\ArrayCollection;
-use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 /**
- * Category
+ * Tags
  *
- * @ORM\Table(name="category")
- * @ORM\Entity(repositoryClass="IXE83\BlogBundle\Repository\CategoryRepository")
+ * @ORM\Table(name="tag")
+ * @ORM\Entity(repositoryClass="IXE83\BlogBundle\Repository\TagRepository")
  */
-class Category
+class Tag implements \JsonSerializable
 {
     /**
      * @var int
@@ -23,22 +21,15 @@ class Category
      */
     private $id;
 
-	/**
-    * @ORM\OneToMany(targetEntity="Blog", mappedBy="category")
-	* 
-    */
-    private $blog;
-
-    
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=255)
-	 * 
+     * @ORM\Column(name="name", type="string", length=255, unique=true)
      */
     private $name;
-	
-	/**
+
+
+    /**
      * Get id
      *
      * @return int
@@ -47,19 +38,13 @@ class Category
     {
         return $this->id;
     }
-	
-	public function __construct()
-    {
-        $this->blog = new ArrayCollection();
-    }
 
-	
     /**
      * Set name
      *
      * @param string $name
      *
-     * @return Category
+     * @return Tags
      */
     public function setName($name)
     {
@@ -69,7 +54,7 @@ class Category
     }
 
     /**
-     * Get name
+     * Get tagname
      *
      * @return string
      */
@@ -77,11 +62,19 @@ class Category
     {
         return $this->name;
     }
+	/**
+     * {@inheritdoc}
+     */
+    public function jsonSerialize()
+    {
+        return $this->name;
+    }
 	
+	/**
+     * @return string
+     */
 	public function __toString()
 	{
-	  return $this->getName();
+    return $this->name;
 	}
-
-    
 }

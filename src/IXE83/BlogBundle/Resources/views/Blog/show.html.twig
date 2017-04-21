@@ -18,7 +18,11 @@
 			<p>Post by: {{ user }}</p>
 		</div>
 		<div>
-			<p>Tags: {{ blog.tags }}</p>
+			<p>Tags: 
+				{% for tag in blog.tags %}
+					{{tag}}
+				{% endfor %}
+			</p>
 		</div>
 		<div class="date">
 			<time datetime="{{ blog.created|date('c') }}">{{ blog.created|date('j F Y') }}</time>

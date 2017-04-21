@@ -7,10 +7,10 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Tags
  *
- * @ORM\Table(name="tags")
+ * @ORM\Table(name="tag")
  * @ORM\Entity(repositoryClass="IXE83\BlogBundle\Repository\TagsRepository")
  */
-class Tags
+class Tag implements \JsonSerializable
 {
     /**
      * @var int
@@ -24,9 +24,9 @@ class Tags
     /**
      * @var string
      *
-     * @ORM\Column(name="tagname", type="string", length=255, unique=true)
+     * @ORM\Column(name="name", type="string", length=255, unique=true)
      */
-    private $tagname;
+    private $name;
 
 
     /**
@@ -40,15 +40,15 @@ class Tags
     }
 
     /**
-     * Set tagname
+     * Set name
      *
-     * @param string $tagname
+     * @param string $name
      *
      * @return Tags
      */
-    public function setTagname($tagname)
+    public function setName($name)
     {
-        $this->tagname = $tagname;
+        $this->name = $name;
 
         return $this;
     }
@@ -58,8 +58,23 @@ class Tags
      *
      * @return string
      */
-    public function getTagname()
+    public function getName()
     {
-        return $this->tagname;
+        return $this->name;
     }
+	/**
+     * {@inheritdoc}
+     */
+    public function jsonSerialize()
+    {
+        return $this->name;
+    }
+	
+	/**
+     * @return string
+     */
+	public function __toString()
+	{
+    return $this->name;
+	}
 }

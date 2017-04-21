@@ -15,9 +15,10 @@ class BlogRepository extends \Doctrine\ORM\EntityRepository
 	public function getLatestBlogs($limit = null)
     {
         $qb = $this->createQueryBuilder('b')
-            ->select('b, c')
+            ->select('b, c, t')
 			->where('b.status = true' )
 			->leftJoin('b.comments', 'c')
+			->leftJoin('b.tags', 't')
             ->orderBy('b.created', 'DESC');
 
         if (false === is_null($limit))
@@ -42,14 +43,16 @@ class BlogRepository extends \Doctrine\ORM\EntityRepository
     public function getTags()
 	{
 		$blogTags = $this->createQueryBuilder('b')
-					->select('b.tags')
+					->select('b, t')
+					->leftJoin('b.tags','t')
 					->getQuery()
 					->getResult();
 					
 		$tags = array();
+		
 		foreach ($blogTags as $blogTag)
 		{
-			$tags = array_merge(explode(",", $blogTag['tags']), $tags);
+			$tags = array_merge($blogTag['tags'], $tags);
 		}
 		
 		foreach ($tags as &$tag)

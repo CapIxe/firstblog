@@ -57,7 +57,7 @@ class Blog
 	/**
      * @var string
      *
-     * @ORM\Column(name="tags", type="text")
+     * @ORM\ManyToMany(targetEntity="Tag", cascade={"persist"})
      */
     protected $tags;
     
@@ -221,11 +221,29 @@ class Blog
 	/**
      * Get tags
      *
-     * @return string
+     * @return Tag[]|ArrayCollection
      */
     public function getTags()
     {
         return $this->tags;
+    }
+	
+	/**
+     * @param Tag $tag
+     */
+	 public function addTag(Tag $tag)
+    {
+        if(!$this->tags->contains($tag)){
+		$this->tags->add($tag);
+		}
+    }
+
+	/**
+     * @param Tag $tag
+     */
+    public function removeTag(Tag $tag)
+    {
+        $this->tags->removeElement($tag);
     }
 	
 	/**
@@ -325,6 +343,7 @@ class Blog
 	public function __construct()
 	{
 		$this->comments = new ArrayCollection();
+		$this->tags = new ArrayCollection();
 		
 		$this->setCreated(new \DateTime());
 		$this->setUpdated(new \DateTime());
@@ -398,6 +417,17 @@ class Blog
 	{
 		return $this->category;
 	}
+	
+	/**
+     * Remove category
+     *
+     * @param \IXE83\BlogBundle\Entity\Category $category
+     */
+    public function removeCategory(\IXE83\BlogBundle\Entity\Category $category)
+    {
+        $this->category->removeElement($category);
+    }
+	
 	
 	public function slugify($text)
 	{

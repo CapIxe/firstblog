@@ -50,13 +50,9 @@ class Category
 	
 	public function __construct()
     {
-        $this->blogPosts = new ArrayCollection();
+        $this->blog = new ArrayCollection();
     }
 
-    public function getBlogPosts()
-    {
-        return $this->blogPosts;
-    }
 	
     /**
      * Set name
@@ -87,27 +83,39 @@ class Category
 	  return $this->getName();
 	}
 
+    
+
     /**
-     * Add blogPost
+     * Add blog
      *
-     * @param \IXE83\BlogBundle\Entity\Blog $blogPost
+     * @param \IXE83\BlogBundle\Entity\Blog $blog
      *
      * @return Category
      */
-    public function addBlogPost(\IXE83\BlogBundle\Entity\Blog $blogPost)
+    public function addBlog(\IXE83\BlogBundle\Entity\Blog $blog)
     {
-        $this->blogPosts[] = $blogPost;
+        $this->blog[] = $blog;
 
         return $this;
     }
 
     /**
-     * Remove blogPost
+     * Remove blog
      *
-     * @param \IXE83\BlogBundle\Entity\Blog $blogPost
+     * @param \IXE83\BlogBundle\Entity\Blog $blog
      */
-    public function removeBlogPost(\IXE83\BlogBundle\Entity\Blog $blogPost)
+    public function removeBlog(\IXE83\BlogBundle\Entity\Blog $blog)
     {
-        $this->blogPosts->removeElement($blogPost);
+        $this->blog->removeElement($blog);
+    }
+
+    /**
+     * Get blog
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getBlog()
+    {
+        return $this->blog;
     }
 }

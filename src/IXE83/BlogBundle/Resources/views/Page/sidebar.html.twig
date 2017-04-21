@@ -2,15 +2,15 @@
 
 <section class="section">
 	<header>
-		<h3>Tags</h3>
+		<h3><a href="{{ path('tag_index') }}">Tags</a></h3>
 	</header>
-	<p class="tags">
-		{% for tag, weight in tags %}
-			<span class="weight-{{ weight }}"><a href="{path('IXE83BlogBundle_homepage')}">{{ tag }}</a></span>
+	 <p class="tags">
+		{% for tag in tags %}
+			<span class="weight-{# weight #}"><a href="{path('IXE83BlogBundle_homepage')}">{{ tag.name }}</a></span>
 		{% else %}
 			<p>There are no tags</p>
 		{% endfor %}
-	</p>
+	</p> 
 	<h3><a href="{{ path('IXE83BlogBundle_category_index') }}">Categories</a></h3>
 	{% for category in categories %}
 			<div>

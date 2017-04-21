@@ -19,7 +19,11 @@ class PageController extends Controller
 		
 		$blogs = $em->getRepository('IXE83BlogBundle:Blog')
 					->getLatestBlogs();
-				
+		
+		$query = $em->createQuery("SELECT b.id, t.id as tag_id FROM IXE83BlogBundle:Blog b LEFT JOIN b.tags t");
+		
+		$tags = $query->getResult();
+		//var_dump($tags);
 		/**
 		* @var $paginator |Knp|Component|Pager|Paginator
 		*/
@@ -75,20 +79,17 @@ class PageController extends Controller
 	{
 		$em = $this->getDoctrine()->getManager();
 		
-		$tags = $em->getRepository('IXE83BlogBundle:Blog')->getTags();
+		$tags = $em->getRepository('IXE83BlogBundle:Tag')->getTags();
 		
-		$tagWeights = $em->getRepository('IXE83BlogBundle:Blog')->getTagWeights($tags);
-		
-		//$categories = $em->getRepository('IXE83BlogBundle:Blog')->getActiveCategory();
-		
-		
+		//$tagWeights = $em->getRepository('IXE83BlogBundle:Tag')->getTagWeights($tags);
+				
 		$query = $em->createQuery("SELECT c FROM IXE83BlogBundle:Category c JOIN c.blog b WHERE b.status = true GROUP BY b.category");
 		
 		$categories = $query->getResult();
 		
 		
 		return $this->render('IXE83BlogBundle:Page:sidebar.html.twig', array(
-			'tags' => $tagWeights,
+			'tags' => $tags,
 			'categories'=> $categories,
 		));
 		

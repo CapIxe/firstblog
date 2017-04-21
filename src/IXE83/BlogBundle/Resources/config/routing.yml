@@ -85,4 +85,25 @@ category_edit:
 category_delete:
     path:     /category/delete
     defaults: { _controller: "IXE83BlogBundle:Category:delete" }
-    methods:  DELETE                     
+    methods:  DELETE   
+    
+tag_index:
+    path:     /tags/
+    defaults: { _controller: "IXE83BlogBundle:Tag:index" }
+    methods:  GET
+
+tag_new:
+    path:     /tags/new
+    defaults: { _controller: "IXE83BlogBundle:Tag:new" }
+    methods:  [GET, POST]
+
+tag_edit:
+    path:     /tags/{name}/edit
+    defaults: { _controller: "IXE83BlogBundle:Tag:edit" }
+    methods:  [GET, POST]
+
+tag_delete:
+    path:     /tags/{id}/delete
+    defaults: { _controller: "IXE83BlogBundle:Tag:delete" }
+    methods:  DELETE  
+    

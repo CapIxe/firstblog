@@ -1,0 +1,26 @@
+{% extends 'IXE83BlogBundle::layout.html.twig' %}
+
+{% block body %}
+	<header>		
+		<h2>Tags list</h2>
+	</header>
+	<div class="blog">
+		{% for tag in tags %}
+		<ul class="category">
+			<li class="column1">{{ tag.name }}</li>
+			<li class="column2"><a href="{{ path('tag_edit', { 'id': tag.id, 'name': tag.name }) }}">edit</a></li>		
+		</ul>
+		{% endfor %}	
+	</div>
+	
+    <ul>
+        <li>
+            <a href="{{ path('tag_new') }}">Create a new tag</a>
+        </li>
+    </ul>
+	<div class="center">
+		<div class="pagination">
+			{{ knp_pagination_render(tags) }}
+		</div>
+	</div>
+{% endblock %}
