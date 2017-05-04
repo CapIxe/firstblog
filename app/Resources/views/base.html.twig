@@ -21,7 +21,17 @@
 <section id="wrapper">
     <header id="header">
         <div class="top">
-		{% block user %}<p class="wellcome">Wellcome, {{ app.user.username|capitalize }}!</p>{% endblock %}
+		{% block user %}
+			{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                <p class="wellcome">Wellcome, {{ app.user.username|capitalize }}!</p>
+                <p><a href="{{ path('fos_user_security_logout') }}">
+                    {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
+                </a></p>
+            {% else %}
+                <p class="wellcome">Wellcome to blog!</p>
+				<p><a href="{{ path('fos_user_security_login') }}">Login</a></p>
+            {% endif %}
+		{% endblock %}
             {% block navigation %}
                 <nav>
                     <ul class="navigation">

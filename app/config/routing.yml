@@ -3,7 +3,7 @@ fos_user:
     
 ixe83_blog:
     resource: "@IXE83BlogBundle/Resources/config/routing.yml"
-    prefix:   /
+    prefix:   /blog/
 
 
 

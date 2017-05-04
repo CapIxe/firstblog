@@ -18,8 +18,11 @@ security:
             form_login:
                 provider: fos_userbundle    
                 csrf_token_generator: security.csrf.token_manager
-                
-            logout: true
+                login_path: /login
+                default_target_path: /blog/
+            logout:
+                path: /logout
+                target: /blog
             anonymous: true
             # activate different ways to authenticate
 

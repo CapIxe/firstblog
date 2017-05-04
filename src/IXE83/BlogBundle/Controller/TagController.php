@@ -78,7 +78,7 @@ class TagController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('tag_edit', array('id' => $tag->getId()));
+            return $this->redirectToRoute('tag_index');
         }
 
         return $this->render('IXE83BlogBundle:Tag:edit.html.twig', array(

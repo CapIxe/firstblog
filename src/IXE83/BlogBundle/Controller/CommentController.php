@@ -8,13 +8,16 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use IXE83\BlogBundle\Entity\Comment;
 use IXE83\BlogBundle\Form\CommentType;
 use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 
 /**
 * Comment controller
+* @Security("is_granted('IS_AUTHENTICATED_FULLY')")
 */
 class CommentController extends Controller
 {
+	
 	public function newAction($blog_id)
 	{
 		$blog = $this->getBlog($blog_id);
@@ -32,9 +35,11 @@ class CommentController extends Controller
 	public function createAction (Request $request, $blog_id)
 	{
 		$blog = $this->getBlog($blog_id);
+		$user = $this->container->get('security.token_storage')->getToken()->getUser();
 		
 		$comment = new Comment();
 		$comment->setBlog($blog);
+		$comment->setUser($user);
 		$form = $this->createForm(CommentType::class, $comment);
 		$form->handleRequest($request);
 		

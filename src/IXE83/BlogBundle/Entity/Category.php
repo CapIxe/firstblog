@@ -82,40 +82,5 @@ class Category
 	{
 	  return $this->getName();
 	}
-
     
-
-    /**
-     * Add blog
-     *
-     * @param \IXE83\BlogBundle\Entity\Blog $blog
-     *
-     * @return Category
-     */
-    public function addBlog(\IXE83\BlogBundle\Entity\Blog $blog)
-    {
-        $this->blog[] = $blog;
-
-        return $this;
-    }
-
-    /**
-     * Remove blog
-     *
-     * @param \IXE83\BlogBundle\Entity\Blog $blog
-     */
-    public function removeBlog(\IXE83\BlogBundle\Entity\Blog $blog)
-    {
-        $this->blog->removeElement($blog);
-    }
-
-    /**
-     * Get blog
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getBlog()
-    {
-        return $this->blog;
-    }
 }

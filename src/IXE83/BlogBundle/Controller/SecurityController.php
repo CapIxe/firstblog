@@ -1,30 +1,52 @@
 <?php
 namespace IXE83\BlogBundle\Controller;
 
+use FOS\UserBundle\Controller\SecurityController as BaseController;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Security\Core\SecurityContext;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
  
-class SecurityController extends Controller
+class SecurityController extends BaseController
 {
 	/**
 	* @Route("/login", name="login")
 	*/
     public function loginAction(Request $request)
     {
-	$authenticationUtils = $this->get('security.authentication_utils');
+	/** @var $session \Symfony\Component\HttpFoundation\Session\Session */
+        $session = $request->getSession();
 
-    // get the login error if there is one
-    $error = $authenticationUtils->getLastAuthenticationError();
+        $authErrorKey = Security::AUTHENTICATION_ERROR;
+        $lastUsernameKey = Security::LAST_USERNAME;
 
-    // last username entered by the user
-    $lastUsername = $authenticationUtils->getLastUsername();
+        // get the error if any (works with forward and redirect -- see below)
+        if ($request->attributes->has($authErrorKey)) {
+            $error = $request->attributes->get($authErrorKey);
+        } elseif (null !== $session && $session->has($authErrorKey)) {
+            $error = $session->get($authErrorKey);
+            $session->remove($authErrorKey);
+        } else {
+            $error = null;
+        }
 
-    return $this->render('app/Resources/views/login.html.twig', array(
-        'last_username' => $lastUsername,
-        'error'         => $error,
-    ));
+        if (!$error instanceof AuthenticationException) {
+            $error = null; // The value does not come from the security component.
+        }
+
+        // last username entered by the user
+        $lastUsername = (null === $session) ? '' : $session->get($lastUsernameKey);
+
+        $csrfToken = $this->has('security.csrf.token_manager')
+            ? $this->get('security.csrf.token_manager')->getToken('authenticate')->getValue()
+            : null;
+
+        return $this->renderLogin(array(
+            'last_username' => $lastUsername,
+            'error' => $error,
+            'csrf_token' => $csrfToken,
+        ));
 	}
     
 }

@@ -83,9 +83,11 @@ category_edit:
     methods:  [GET, POST]
 
 category_delete:
-    path:     /category/delete
+    path:     /category/delete/{id}
     defaults: { _controller: "IXE83BlogBundle:Category:delete" }
-    methods:  DELETE   
+    requirements:
+        methods:  DELETE
+               
     
 tag_index:
     path:     /tags/
@@ -106,4 +108,28 @@ tag_delete:
     path:     /tags/{id}/delete
     defaults: { _controller: "IXE83BlogBundle:Tag:delete" }
     methods:  DELETE  
-    
+
+user_index:
+    path:     /user/index
+    defaults: { _controller: "IXE83BlogBundle:User:index" }
+    methods:  GET
+
+user_show:
+    path:     /user/{id}/show
+    defaults: { _controller: "IXE83BlogBundle:User:show" }
+    methods:  GET
+
+user_new:
+    path:     /user/new
+    defaults: { _controller: "IXE83BlogBundle:User:new" }
+    methods:  [GET, POST]
+
+user_edit:
+    path:     /user/{id}/edit
+    defaults: { _controller: "IXE83BlogBundle:User:edit" }
+    methods:  [GET, POST]
+
+user_delete:
+    path:     /user/{id}/delete
+    defaults: { _controller: "IXE83BlogBundle:User:delete" }
+    methods:  DELETE

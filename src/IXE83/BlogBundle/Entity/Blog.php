@@ -86,6 +86,7 @@ class Blog
     protected $slug;
 	
 	/**
+	* @var string
 	* @ORM\ManyToOne(targetEntity="Category", inversedBy="blog")
 	* @ORM\JoinColumn(name="category_id", referencedColumnName="id")
 	*/
