@@ -94,8 +94,8 @@ class BlogController extends Controller
 	}
 	
 	/**
-	* @Security("has_role('ROLE_USER')")
-	* @Security("post.isAuthor(user)")
+	* 
+	* @Security("blog.isAuthor(user) or has_role('ROLE_ADMIN')")
 	*/
 	public function deleteAction(Request $request, Blog $blog)
 	{
@@ -112,8 +112,8 @@ class BlogController extends Controller
 	}
 	
 	/**
-	* @Security("has_role('ROLE_USER')")
-	* @Security("post.isAuthor(user)")
+	* 
+	* @Security("blog.isAuthor(user) or has_role('ROLE_ADMIN')")
 	*/
 	public function editAction(Request $request, Blog $blog)
 	{
