@@ -8,7 +8,10 @@
 	<link href="{{asset('bundles/ixe83blog/css/sidebar.css')}}" type="text/css" rel="stylesheet">
 {%endblock%}
 
-
+{% block author %}
+	<li><a href="{{ path('IXE83BlogBundle_newpost')}}">New post</a></li>
+	<li><a href="{{ path('admin_posts')}}">My posts</a></li>
+{% endblock %}
 
 {% block sidebar %}
     {{ render(controller('IXE83BlogBundle:Page:sidebar')) }}

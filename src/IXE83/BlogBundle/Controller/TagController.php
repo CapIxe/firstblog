@@ -6,10 +6,11 @@ use IXE83\BlogBundle\Entity\Tag;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\Tools\Pagination\Paginator;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /**
  * Tag controller.
- *
+ * @Security("has_role('ROLE_USER')")
  */
 class TagController extends Controller
 {

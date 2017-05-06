@@ -7,15 +7,15 @@ use Symfony\Component\Security\Core\SecurityContext;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
  
 class SecurityController extends BaseController
 {
-	/**
-	* @Route("/login", name="login")
-	*/
+	/*
+	
     public function loginAction(Request $request)
     {
-	/** @var $session \Symfony\Component\HttpFoundation\Session\Session */
+	
         $session = $request->getSession();
 
         $authErrorKey = Security::AUTHENTICATION_ERROR;
@@ -49,4 +49,5 @@ class SecurityController extends BaseController
         ));
 	}
     
+	*/
 }

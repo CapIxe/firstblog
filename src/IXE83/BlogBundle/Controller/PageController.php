@@ -40,6 +40,7 @@ class PageController extends Controller
     }
 	
 	
+	
 	public function aboutAction()
 	{
 		return $this->render('IXE83BlogBundle:Page:about.html.twig');

@@ -22,6 +22,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 /**
 * Blog controller
+* @Security("has_role('ROLE_USER')")
 */
 class BlogController extends Controller
 {
@@ -50,6 +51,8 @@ class BlogController extends Controller
 			'user'=>$author,
 		));
 	}
+	
+	
 	
 	/**
 	* @Security("has_role('ROLE_USER')")
@@ -92,9 +95,11 @@ class BlogController extends Controller
 	
 	/**
 	* @Security("has_role('ROLE_USER')")
+	* @Security("post.isAuthor(user)")
 	*/
 	public function deleteAction(Request $request, Blog $blog)
 	{
+		if (is)
 		$form = $this->createDeleteForm($blog);
 		$form->handleRequest($request);
 		
@@ -108,6 +113,7 @@ class BlogController extends Controller
 	
 	/**
 	* @Security("has_role('ROLE_USER')")
+	* @Security("post.isAuthor(user)")
 	*/
 	public function editAction(Request $request, Blog $blog)
 	{

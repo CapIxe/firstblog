@@ -24,21 +24,26 @@
 		{% block user %}
 			{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                 <p class="wellcome">Wellcome, {{ app.user.username|capitalize }}!</p>
-                <p><a href="{{ path('fos_user_security_logout') }}">
-                    {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
-                </a></p>
             {% else %}
                 <p class="wellcome">Wellcome to blog!</p>
-				<p><a href="{{ path('fos_user_security_login') }}">Login</a></p>
-            {% endif %}
+			{% endif %}
 		{% endblock %}
             {% block navigation %}
                 <nav>
                     <ul class="navigation">
+						{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+							{% block author %}{% endblock %}
+						{% endif %}	
 						<li><a href="{{ path('IXE83BlogBundle_homepage')}}">Home</a></li>
                         <li><a href="{{ path('IXE83BlogBundle_about')}}">About</a></li>
                         <li><a href="{{ path('IXE83BlogBundle_contact')}}">Contact</a></li>
-						<li><a href="{{ path('IXE83BlogBundle_newpost')}}">New post</a></li>
+						{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+							<li><a href="{{ path('fos_user_security_logout') }}">
+									{{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
+							</a></li>
+						{% else %}
+							<li><a href="{{ path('fos_user_security_login') }}">Login</a></li>
+						{% endif %}
                     </ul>
                 </nav>
             {% endblock %}

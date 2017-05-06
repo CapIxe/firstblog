@@ -133,3 +133,13 @@ user_delete:
     path:     /user/{id}/delete
     defaults: { _controller: "IXE83BlogBundle:User:delete" }
     methods:  DELETE
+    
+admin_index:
+    path:   /area77
+    defaults: { _controller: "IXE83BlogBundle:Admin:index" }
+    methods: GET
+    
+admin_posts:
+    path:   /my_posts
+    defaults: { _controller: "IXE83BlogBundle:Admin:showposts" }
+    methods: GET
