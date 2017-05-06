@@ -29,7 +29,7 @@
 			{# <time datetime="{{ blog.updated|date('c') }}">{{ blog.updated|date('j F Y') }}</time> #}
 		</div>
 		<div>
-		{% if blog.isAuthor(app.user) %}
+		{% if (blog.isAuthor(app.user)) or (is_granted('ROLE_ADMIN')) %}
 			<p><a href="{{ path('IXE83BlogBundle_blog_edit',{ 'id': blog.id, 'slug': blog.slug }) }}">Edit</a></p>
 		{% endif %}
 			<p><a href="{{ path('IXE83BlogBundle_homepage') }}">Back to the list</a></p>
