@@ -93,4 +93,12 @@ fos_user:
     user_class: IXE83\BlogBundle\Entity\User
     from_email:
         address: "%mailer_user%"
-        sender_name: "%mailer_user%"        
+        sender_name: "%mailer_user%"   
+
+# Ivory CK Editor
+ivory_ck_editor:
+   configs:
+        my_config:
+            toolbar: [ ["Source", "-", "Save"], ["Anchor"], ["Maximize"] ]
+            uiColor:                "#56a0f2"
+            width: 500px

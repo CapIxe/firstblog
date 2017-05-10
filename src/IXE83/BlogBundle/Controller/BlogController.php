@@ -12,13 +12,11 @@ use IXE83\BlogBundle\Form\BlogType;
 use IXE83\BlogBundle\Form\Type\TagsInputType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Ivory\CKEditorBundle\Form\Type\CKEditorType;
 
 /**
 * Blog controller
@@ -76,7 +74,6 @@ class BlogController extends Controller
 		if ($newForm->isSubmitted() && $newForm->isValid()){
 			$em =$this->getDoctrine()->getManager();
 			$tags = explode(",", $blog->getTags());
-			var_dump($tags);
 			$file = $blog->getImage();
 			$fileName = md5(uniqid()).'.'.$file->guessExtension();
 			$file->move($this->getParameter('images_directory'), $fileName);
@@ -99,12 +96,14 @@ class BlogController extends Controller
 	*/
 	public function deleteAction(Request $request, Blog $blog)
 	{
-		if (is)
 		$form = $this->createDeleteForm($blog);
 		$form->handleRequest($request);
 		
 		if($form->isSubmitted() && $form->isValid()){
 			$em = $this->getDoctrine()->getManager();
+			$fileName = $blog->getImage();
+			$path = $this->getParameter('images_directory');
+			unlink($path.'/'.$fileName);
 			$em->remove($blog);
 			$em->flush($blog);
 		}
@@ -121,7 +120,9 @@ class BlogController extends Controller
 		$blog->setUpdated(new \DateTime('now'));
 		$editForm = $this->createFormBuilder($blog)
 						->add('title', TextType::class)
-						->add('blog', TextareaType::class)
+						->add('blog', CKEditorType::class, array(
+								'config_name' => 'my_config',
+								))
 						->add('tags', TagsInputType::class)
 						->add('category', EntityType::class, array(
 										'class'=>'IXE83BlogBundle:Category' ,

@@ -15,6 +15,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Ivory\CKEditorBundle\Form\Type\CKEditorType;
 
 class BlogType extends AbstractType
 {
@@ -24,7 +25,9 @@ class BlogType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('title', TextType::class)
-						->add('blog', TextareaType::class)
+						->add('blog', CKEditorType::class, array(
+								'config_name' => 'my_config',
+								))
 						->add('image', FileType::class)
 						->add('tags', TagsInputType::class,array(
 										'label'=>'Tags',
