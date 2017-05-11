@@ -12,9 +12,10 @@
 /var/sessions/*
 !var/sessions/.gitkeep
 !var/SymfonyRequirements.php
-/vendor/
+!/vendor/
 /web/bundles/
 /tests/
 /bin/
 /bower_components/
+/web/images/
 !/vendor/friendsofsymfony/user-bundle/
