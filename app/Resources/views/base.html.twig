@@ -21,16 +21,18 @@
 <section id="wrapper">
     <header id="header">
         <div class="top">
-		{% block user %}
-			{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                <p class="wellcome">Wellcome, {{ app.user.username|capitalize }}!</p>
-            {% else %}
-                <p class="wellcome">Wellcome to blog!</p>
-			{% endif %}
-		{% endblock %}
+		
             {% block navigation %}
                 <nav>
-                    <ul class="navigation">
+				<ul class="navigation">
+					{% block user %}
+						{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+							<span style="position: absolute; left:10%; top: 20px;"><li>Wellcome, {{ app.user.username|capitalize }}!</li></span>
+						{% else %}
+							<p class="wellcome">Wellcome to blog!</p>
+						{% endif %}
+					{% endblock %}
+                    
 						{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
 							{% block author %}{% endblock %}
 						{% endif %}	
@@ -64,7 +66,7 @@
 
     <div id="footer">
         {% block footer %}
-            Blog created by Alex Dolinsky with Symfony 3
+            Blog created in Symfony 3
         {% endblock %}
     </div>
 </section>
