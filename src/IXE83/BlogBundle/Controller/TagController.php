@@ -33,10 +33,6 @@ class TagController extends Controller
 			$request->query->getInt('page', 1),10 
 			);
 		
-		
-        /*return $this->render('IXE83BlogBundle:Page:index.html.twig', array(
-			'blogs' => $pagination
-		));*/
         return $this->render('IXE83BlogBundle:Tag:index.html.twig', array(
             'tags' => $pagination,
         ));

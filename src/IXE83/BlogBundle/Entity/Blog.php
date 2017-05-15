@@ -55,9 +55,8 @@ class Blog
     protected $image;
 	
 	/**
-     * @var string
-     *
-     * @ORM\ManyToMany(targetEntity="Tag", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="Tag", inversedBy="blogs", cascade={"persist"})
+	 * @ORM\JoinTable(name="blog_tag")
      */
     protected $tags;
     
@@ -244,9 +243,11 @@ class Blog
      */
 	 public function addTag(Tag $tag)
     {
-        if(!$this->tags->contains($tag)){
+        /*if(!$this->tags->contains($tag)){
 		$this->tags->add($tag);
-		}
+		}*/
+		$tag->addBlog($this);
+		$this->tags[] = $tag;
     }
 
 	/**

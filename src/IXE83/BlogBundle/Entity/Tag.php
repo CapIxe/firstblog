@@ -27,8 +27,22 @@ class Tag implements \JsonSerializable
      * @ORM\Column(name="name", type="string", length=255, unique=true)
      */
     private $name;
+	
+	/**
+     * @ORM\ManyToMany(targetEntity="Blog", mappedBy="tags")
+     */
+    private $blogs;
 
-
+	public function __construct()
+	{
+        $this->blogs = new ArrayCollection();
+    }
+	
+	public function addBlog (Blog $blog)
+	{
+		$this->blogs[] = $blog;
+	}
+	
     /**
      * Get id
      *
