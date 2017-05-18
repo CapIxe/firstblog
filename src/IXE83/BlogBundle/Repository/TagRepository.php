@@ -22,6 +22,7 @@ class TagRepository extends \Doctrine\ORM\EntityRepository
 		return $tags;
 	}
 	
+	
 	public function getTagWeights($tags)
 	{
 		$tagWeights = array();

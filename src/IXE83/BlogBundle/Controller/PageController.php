@@ -81,16 +81,7 @@ class PageController extends Controller
 		$em = $this->getDoctrine()->getManager();
 		
 		$tags = $em->getRepository('IXE83BlogBundle:Tag')->getTags();
-		
-		/*$alltags = $em->createQuery('SELECT t.name FROM IXE83BlogBundle:Blog b
-									   JOIN blog_tag ON blog_tag.blog_id = blog.id 
-									   JOIN IXE83BlogBundle:Tag t ON tag.id = blog_tag.tag_id');
-		
-		$querytags = $alltags->getResult();*/
-		//var_dump($querytags);
-		
-		//$tagWeights = $em->getRepository('IXE83BlogBundle:Tag')->getTagWeights($tags);
-				
+								
 		$query = $em->createQuery("SELECT c FROM IXE83BlogBundle:Category c JOIN c.blog b WHERE b.status = true GROUP BY b.category");
 		
 		$categories = $query->getResult();

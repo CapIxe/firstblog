@@ -255,7 +255,9 @@ class Blog
      */
     public function removeTag(Tag $tag)
     {
+		if (!$this->hasTag($tag)){
         $this->tags->removeElement($tag);
+		}
     }
 	
 	/**

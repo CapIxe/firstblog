@@ -19,19 +19,19 @@ class Tag implements \JsonSerializable
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;
 
     /**
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255, unique=true)
      */
-    private $name;
+    protected $name;
 	
 	/**
      * @ORM\ManyToMany(targetEntity="Blog", mappedBy="tags")
      */
-    private $blogs;
+    protected $blogs;
 
 	public function __construct()
 	{
@@ -91,4 +91,24 @@ class Tag implements \JsonSerializable
 	{
     return $this->name;
 	}
+
+    /**
+     * Remove blog
+     *
+     * @param \IXE83\BlogBundle\Entity\Blog $blog
+     */
+    public function removeBlog(\IXE83\BlogBundle\Entity\Blog $blog)
+    {
+        $this->blogs->removeElement($blog);
+    }
+
+    /**
+     * Get blogs
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getBlogs()
+    {
+        return $this->blogs;
+    }
 }
