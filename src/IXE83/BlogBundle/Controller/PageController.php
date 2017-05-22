@@ -20,10 +20,6 @@ class PageController extends Controller
 		$blogs = $em->getRepository('IXE83BlogBundle:Blog')
 					->getLatestBlogs();
 		
-		$query = $em->createQuery("SELECT b.id, t.id as tag_id FROM IXE83BlogBundle:Blog b LEFT JOIN b.tags t");
-		
-		$tags = $query->getResult();
-		//var_dump($tags);
 		/**
 		* @var $paginator |Knp|Component|Pager|Paginator
 		*/
