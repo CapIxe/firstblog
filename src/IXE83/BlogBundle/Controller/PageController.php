@@ -83,6 +83,7 @@ class PageController extends Controller
 		$categories = $query->getResult();
 		
 		
+		
 		return $this->render('IXE83BlogBundle:Page:sidebar.html.twig', array(
 			'tags' => $tags,
 			'categories'=> $categories,
