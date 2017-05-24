@@ -20,7 +20,7 @@
 					{% endfor %}</span></p>
 				<p>Comments: <a href="{{ path('IXE83BlogBundle_blog_show', {'id': blog.id, 'slug': blog.slug }) }}#comments">
 			{{ blog.comments|length }}</a></p>
-				<p>Posted by <span class="highlight">{{blog.author}}</span> at {{blog.created|date ('h:i:A')}}</p>
+				<p>Posted by <span class="highlight">{{blog.author}}</span> at {{blog.created|date ('H:i')}}</p>
 				<div class="date">
 					<time datetime="{{ blog.created|date('c') }}">{{ blog.created|date('j F Y') }}</time>
 				</div>
