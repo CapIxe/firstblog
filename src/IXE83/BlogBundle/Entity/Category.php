@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the Symfony package.
+ *
+ * (c) Fabien Potencier <fabien@symfony.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+ 
 namespace IXE83\BlogBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -25,16 +34,13 @@ class Category
 
     /**
     * @ORM\OneToMany(targetEntity="Blog", mappedBy="category")
-    * 
     */
     private $blog;
-
     
     /**
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255)
-     * 
      */
     private $name;
     
@@ -52,7 +58,6 @@ class Category
     {
         $this->blog = new ArrayCollection();
     }
-
     
     /**
      * Set name

@@ -1,14 +1,11 @@
 {% extends 'IXE83BlogBundle::layout.html.twig' %}
 
-
-
-{% block body %}
-    <h1>Wellcome to admin page!</h1>
-    {% if is_granted('ROLE_ADMIN') %}
-    <h2><a href={{ path('user_index') }}>Users</a></h2>
-    {% endif %}
-    <h2><a href={{ path('IXE83BlogBundle_homepage') }}>Posts</a></h2>
-    <h2><a href={{ path('IXE83BlogBundle_category_index') }}>Categories</a></h2>
-    <h2><a href={{ path('tag_index') }}>Tags</a></h2>
-    
-{% endblock %}
+    {% block body %}
+        <h1>Wellcome to admin page!</h1>
+        {% if is_granted('ROLE_ADMIN') %}
+        <h2><a href={{ path('user_index') }}>Users</a></h2>
+        {% endif %}
+        <h2><a href={{ path('IXE83BlogBundle_homepage') }}>Posts</a></h2>
+        <h2><a href={{ path('IXE83BlogBundle_category_index') }}>Categories</a></h2>
+        <h2><a href={{ path('tag_index') }}>Tags</a></h2>
+    {% endblock %}

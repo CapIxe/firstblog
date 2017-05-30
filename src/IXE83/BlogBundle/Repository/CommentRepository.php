@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the Symfony package.
+ *
+ * (c) Fabien Potencier <fabien@symfony.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace IXE83\BlogBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
@@ -21,10 +30,8 @@ class CommentRepository extends \Doctrine\ORM\EntityRepository
                    ->setParameter('blog_id', $blogId);
 
         if (false === is_null($approved))
-            $qb->andWhere('c.approved = :approved')
-               ->setParameter('approved', $approved);
+            $qb->andWhere('c.approved = :approved')->setParameter('approved', $approved);
 
-        return $qb->getQuery()
-                  ->getResult();
+        return $qb->getQuery()->getResult();
     }
 }

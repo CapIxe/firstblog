@@ -1,6 +1,13 @@
 <?php
 
-//src/IXE83/BlogBundle/Entity/Repository/BlogRepository.php
+/*
+ * This file is part of the Symfony package.
+ *
+ * (c) Fabien Potencier <fabien@symfony.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 
 namespace IXE83\BlogBundle\Repository;
 
@@ -16,7 +23,7 @@ class BlogRepository extends \Doctrine\ORM\EntityRepository
     {
         $qb = $this->createQueryBuilder('b')
             ->select('b, c, t')
-            ->where('b.status = true' )
+            ->where('b.status = true')
             ->leftJoin('b.comments', 'c')
             ->leftJoin('b.tags', 't')
             ->orderBy('b.created', 'DESC');
@@ -24,8 +31,7 @@ class BlogRepository extends \Doctrine\ORM\EntityRepository
         if (false === is_null($limit))
             $qb->setMaxResults($limit);
 
-        return $qb->getQuery()
-            ->getResult();
+        return $qb->getQuery()->getResult();
     }
     
     public function getCategoryBlogs($id, $limit = null)
@@ -36,11 +42,9 @@ class BlogRepository extends \Doctrine\ORM\EntityRepository
             ->orderBy('b.created', 'DESC')
             ->setParameter('category_id', $id);
 
-        return $qb->getQuery()
-            ->getResult();
+        return $qb->getQuery()->getResult();
     }
-    
-        
+       
     public function getTags()
     {
         $blogTags = $this->createQueryBuilder('b')
@@ -48,12 +52,12 @@ class BlogRepository extends \Doctrine\ORM\EntityRepository
                     ->leftJoin('b.tags','t')
                     ->getQuery()
                     ->getResult();
-                    
-        $tags = array();
+        
+        $tags = [];
         
         foreach ($blogTags as $blogTag)
         {
-            $tags = array_merge($blogTag['tags'], $tags);
+            $tags = array_merge ($blogTag['tags'], $tags);
         }
         
         foreach ($tags as &$tag)
@@ -66,16 +70,15 @@ class BlogRepository extends \Doctrine\ORM\EntityRepository
 
     public function getTagWeights($tags)
     {
-        $tagWeights = array();
+        $tagWeights = array ();
         if (empty($tags))
             return $tagWeights;
         
-        foreach($tags as $tag)
-        {
+        foreach ($tags as $tag) {
             $tagWeights[$tag] = (isset($tagWeights[$tag])) ? $tagWeights[$tag]+1 : 1;
         }
         //Shuffle the tags
-        uksort($tagWeights, function(){
+        uksort($tagWeights, function() {
             return rand()>rand();
         });
         
@@ -83,11 +86,11 @@ class BlogRepository extends \Doctrine\ORM\EntityRepository
         
         //Max of 5 weights
         $multiplier = ($max > 5) ? 5 / $max : 1;
-        foreach ($tagWeights as &$tag)
-        {
+        
+        foreach ($tagWeights as &$tag) {
             $tag = ceil($tag * $multiplier);
         }
+        
         return $tagWeights;
     }
-    
 }

@@ -1,5 +1,14 @@
 <?php
-// src/IXE83/BlogBundle/Form/TagType.php
+
+/*
+ * This file is part of the Symfony package.
+ *
+ * (c) Fabien Potencier <fabien@symfony.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+ 
 namespace IXE83\BlogBundle\Form;
 
 use IXE83\BlogBundle\Entity\Tags;
@@ -21,5 +30,4 @@ class TagType extends AbstractType
             'data_class' => 'IXE83\BlogBundle\Entity\Tag',
         ));
     }
-    
 }

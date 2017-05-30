@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the Symfony package.
+ *
+ * (c) Fabien Potencier <fabien@symfony.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+ 
 namespace IXE83\BlogBundle\Repository;
 
 /**
@@ -21,18 +30,17 @@ class TagRepository extends \Doctrine\ORM\EntityRepository
                         
         return $tags;
     }
-    
-    
+       
     public function getTagWeights($tags)
     {
         $tagWeights = array();
         if (empty($tags))
             return $tagWeights;
         
-        foreach($tags as $tag)
-        {
+        foreach($tags as $tag) {
             $tagWeights[$tag] = (isset($tagWeights[$tag])) ? $tagWeights[$tag]+1 : 1;
         }
+        
         //Shuffle the tags
         uksort($tagWeights, function(){
             return rand()>rand();
@@ -42,10 +50,11 @@ class TagRepository extends \Doctrine\ORM\EntityRepository
         
         //Max of 5 weights
         $multiplier = ($max > 5) ? 5 / $max : 1;
-        foreach ($tagWeights as &$tag)
-        {
+        
+        foreach ($tagWeights as &$tag) {
             $tag = ceil($tag * $multiplier);
         }
+        
         return $tagWeights;
     }
 }

@@ -1,5 +1,13 @@
 <?php
-//src/IXE83/BlogBundle/Entity/Blog.php
+
+/*
+ * This file is part of the Symfony package.
+ *
+ * (c) Fabien Potencier <fabien@symfony.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 
 namespace IXE83\BlogBundle\Entity;
 
@@ -243,9 +251,6 @@ class Blog
      */
      public function addTag(Tag $tag)
     {
-        /*if(!$this->tags->contains($tag)){
-        $this->tags->add($tag);
-        }*/
         $tag->addBlog($this);
         $this->tags[] = $tag;
     }
@@ -255,7 +260,7 @@ class Blog
      */
     public function removeTag(Tag $tag)
     {
-        if (!$this->hasTag($tag)){
+        if (!$this->hasTag($tag)) {
         $this->tags->removeElement($tag);
         }
     }
@@ -279,7 +284,7 @@ class Blog
      */
      public function getStatus()
      {
-         return $this->status;
+        return $this->status;
      }
      
     /**
@@ -357,9 +362,11 @@ class Blog
     public function __construct()
     {
         $this->comments = new ArrayCollection();
+        
         $this->tags = new ArrayCollection();
         
         $this->setCreated(new \DateTime());
+        
         $this->setUpdated(new \DateTime());
     }
     
@@ -452,8 +459,7 @@ class Blog
         $text = trim($text, '-');
         
         //transliterate
-        if(function_exists('iconv'))
-        {
+        if (function_exists('iconv')) {
             $text = iconv('utf-8','us-ascii//TRANSLIT', $text);
         }
         
@@ -463,10 +469,10 @@ class Blog
         // remove unwanted characters
         $text = preg_replace('#[^-\w]+#', '', $text);
         
-        if(empty($text))
-        {
+        if (empty($text)) {
             return 'n-a';
         }
+        
     return $text;
     }
 }

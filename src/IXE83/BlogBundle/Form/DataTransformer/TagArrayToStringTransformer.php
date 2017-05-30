@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the Symfony package.
+ *
+ * (c) Fabien Potencier <fabien@symfony.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+ 
 namespace IXE83\BlogBundle\Form\DataTransformer;
 
 use IXE83\BlogBundle\Entity\Tag;
@@ -10,6 +19,7 @@ use Symfony\Component\Form\DataTransformerInterface;
 class TagArrayToStringTransformer implements DataTransformerInterface
 {
     private $manager;
+    
     public function __construct(ObjectManager $manager)
     {
         $this->manager = $manager;
@@ -19,8 +29,6 @@ class TagArrayToStringTransformer implements DataTransformerInterface
      */
     public function transform($array)
     {
-        
-        /* @var Tag[] $array */
         return implode(',', $array);
     }
     
@@ -33,16 +41,17 @@ class TagArrayToStringTransformer implements DataTransformerInterface
             return [];
         }
         $names = array_filter(array_unique(array_map('trim', explode(',', $string))));
-        // Get the current tags and find the new ones that should be created.
-        $tags = $this->manager->getRepository(Tag::class)->findBy([
-            'name' => $names,
-        ]);
+        
+        $tags = $this->manager->getRepository(Tag::class)->findBy(['name' => $names, ]);
+        
         $newNames = array_diff($names, $tags);
+        
         foreach ($newNames as $name) {
             $tag = new Tag();
-            $tag->setName($name);
-            $tags[] = $tag;
             
+            $tag->setName($name);
+            
+            $tags[] = $tag; 
         }
         
         return $tags;

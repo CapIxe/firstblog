@@ -1,6 +1,13 @@
 <?php
 
-// src/IXE83/BlogBundle/Entity/Enquiry.php
+/*
+ * This file is part of the Symfony package.
+ *
+ * (c) Fabien Potencier <fabien@symfony.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 
 namespace IXE83\BlogBundle\Entity;
 
@@ -33,52 +40,51 @@ class Enquiry
     }
     
     /**
-    * @return mixed
-    */
+     * @return mixed
+     */
     public function getName()
     {
         return $this->name;
     }
-    
-    
+        
     /**
-    * @param mixed $name
-    */
+     * @param mixed $name
+     */
     public function setName($name)
     {
-        return $this->name=$name;
+        return $this->name = $name;
     }
     
     /**
-    * @return mixed
-    */
+     * @return mixed
+     */
     public function getEmail()
     {
         return $this->email;
     }
     
     /**
-    * @param mixed $email
-    */
+     * @param mixed $email
+     */
     public function setEmail($email)
     {
-        return $this->email=$email;
+        return $this->email = $email;
     }
     
     /**
-    * @return mixed
-    */
+     * @return mixed
+     */
     public function getSubject()
     {
         return $this->subject;
     }
     
     /**
-    * @param mixed $subject
-    */
+     * @param mixed $subject
+     */
     public function setSubject($subject)
     {
-        return $this->subject=$subject;
+        return $this->subject = $subject;
     }
     
     /**
@@ -94,8 +100,6 @@ class Enquiry
     */
     public function setBody($body)
     {
-        return $this->body=$body;
+        return $this->body = $body;
     }
-    
-    
 }

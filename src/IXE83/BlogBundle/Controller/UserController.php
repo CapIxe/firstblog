@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the Symfony package.
+ *
+ * (c) Fabien Potencier <fabien@symfony.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+ 
 namespace IXE83\BlogBundle\Controller;
 
 use IXE83\BlogBundle\Entity\User;
@@ -8,15 +17,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /**
- * User controller.
  * @Security("has_role('ROLE_ADMIN')")
  */
 class UserController extends Controller
 {
-    /**
-     * Lists all user entities.
-     *
-     */
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
@@ -28,19 +32,20 @@ class UserController extends Controller
         ));
     }
 
-    /**
-     * Creates a new user entity.
-     *
-     */
     public function newAction(Request $request)
     {
         $user = new User();
+        
         $form = $this->createForm('IXE83\BlogBundle\Form\UserType', $user);
+        
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            
             $em = $this->getDoctrine()->getManager();
+            
             $em->persist($user);
+            
             $em->flush($user);
 
             return $this->redirectToRoute('user_show', array('id' => $user->getId()));
@@ -52,10 +57,6 @@ class UserController extends Controller
         ));
     }
 
-    /**
-     * Finds and displays a user entity.
-     *
-     */
     public function showAction(User $user)
     {
         $deleteForm = $this->createDeleteForm($user);
@@ -66,14 +67,12 @@ class UserController extends Controller
         ));
     }
 
-    /**
-     * Displays a form to edit an existing user entity.
-     *
-     */
     public function editAction(Request $request, User $user)
     {
         $deleteForm = $this->createDeleteForm($user);
+        
         $editForm = $this->createForm('IXE83\BlogBundle\Form\UserType', $user);
+        
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
@@ -89,37 +88,28 @@ class UserController extends Controller
         ));
     }
 
-    /**
-     * Deletes a user entity.
-     *
-     */
     public function deleteAction(Request $request, User $user)
     {
         $form = $this->createDeleteForm($user);
+        
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            
             $em->remove($user);
+            
             $em->flush($user);
         }
 
         return $this->redirectToRoute('user_index');
     }
 
-    /**
-     * Creates a form to delete a user entity.
-     *
-     * @param User $user The user entity
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
     private function createDeleteForm(User $user)
     {
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('user_delete', array('id' => $user->getId())))
             ->setMethod('DELETE')
-            ->getForm()
-        ;
+            ->getForm();
     }
 }

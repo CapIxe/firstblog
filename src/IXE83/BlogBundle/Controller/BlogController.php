@@ -1,5 +1,13 @@
 <?php
-//src/IXE83/BlogBundle/Controller/BlogController.php
+
+/*
+ * This file is part of the Symfony package.
+ *
+ * (c) Fabien Potencier <fabien@symfony.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 
 namespace IXE83\BlogBundle\Controller;
 
@@ -35,12 +43,7 @@ class BlogController extends Controller
         
         $author = $blog->getAuthor();
         
-        //$tags = $blog->getTags();
-        
-        //var_dump($tags);
-        
-        if (!$blog)
-        {
+        if (!$blog) {
             throw $this->createNotFoundException('Unable to find Blog post.');
         }
         
@@ -53,36 +56,45 @@ class BlogController extends Controller
             'user'=>$author,
         ));
     }
-    
-    
-    
+       
     /**
     * @Security("has_role('ROLE_USER')")
     */
     public function newAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
+        
         $user = $this->container->get('security.token_storage')->getToken()->getUser();
         
         $blog = new Blog;
+        
         $blog->setAuthor($user);
+        
         $blog->setCreated(new \DateTime('now'));
         
         $newForm = $this->createForm(BlogType::class, $blog)
                         ->add('save', SubmitType::class, array('label'=>'Add post'));
-        $blog->setSlug($blog->getTitle());
-        
                         
+        $blog->setSlug($blog->getTitle());
+           
         $newForm->handleRequest($request);
         
-        if ($newForm->isSubmitted() && $newForm->isValid()){
-            $em =$this->getDoctrine()->getManager();
+        if ($newForm->isSubmitted() && $newForm->isValid()) {
+            
+            $em = $this->getDoctrine()->getManager();
+            
             $tags = explode(",", $blog->getTags());
+            
             $file = $blog->getImage();
+            
             $fileName = md5(uniqid()).'.'.$file->guessExtension();
+            
             $file->move($this->getParameter('images_directory'), $fileName);
+            
             $blog->setImage($fileName);
+            
             $em->persist($blog);
+            
             $em->flush($blog);
             
             return $this->redirect($this->generateUrl('IXE83BlogBundle_homepage'));
@@ -95,53 +107,59 @@ class BlogController extends Controller
     }
     
     /**
-    * 
     * @Security("blog.isAuthor(user) or has_role('ROLE_ADMIN')")
     */
     public function deleteAction(Request $request, Blog $blog)
     {
         $form = $this->createDeleteForm($blog);
+        
         $form->handleRequest($request);
         
-        if($form->isSubmitted() && $form->isValid()){
+        if($form->isSubmitted() && $form->isValid()) {
+            
             $em = $this->getDoctrine()->getManager();
+            
             $fileName = $blog->getImage();
+            
             $path = $this->getParameter('images_directory');
+            
             unlink($path.'/'.$fileName);
+            
             $em->remove($blog);
+            
             $em->flush($blog);
         }
         return $this->redirectToRoute('IXE83BlogBundle_homepage');
     }
     
     /**
-    * 
     * @Security("blog.isAuthor(user) or has_role('ROLE_ADMIN')")
     */
     public function editAction(Request $request, Blog $blog)
     {
         $deleteForm = $this->createDeleteForm($blog);
+        
         $blog->setUpdated(new \DateTime('now'));
+        
         $editForm = $this->createFormBuilder($blog)
                         ->add('title', TextType::class)
-                        ->add('blog', CKEditorType::class, array(
-                                'config_name' => 'my_config',
-                                ))
+                        ->add('blog', CKEditorType::class, array('config_name' => 'my_config',))
                         ->add('tags', TagsInputType::class)
                         ->add('category', EntityType::class, array(
-                                        'class'=>'IXE83BlogBundle:Category' ,
+                                        'class'=>'IXE83BlogBundle:Category',
                                         'choice_label'=> 'name',))
                         ->add('status', ChoiceType::class, array('choices'=>array('publish'=> true, 'draft'=>false,)))
-                        ->add('save', SubmitType::class, array('label'=>'Save changes'))
+                        ->add('save', SubmitType::class, array('label'=>'Save changes',))
                         ->getForm();
+                        
         $editForm->handleRequest($request);
         
-        if ($editForm->isSubmitted() && $editForm->isValid()){
+        if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
             
             return $this->redirectToRoute('IXE83BlogBundle_blog_show', array(
-            'id' => $blog->getId(),
-            'slug'=> $blog->getSlug()
+                'id' => $blog->getId(),
+                'slug'=> $blog->getSlug()
             ));
         }
         
@@ -149,8 +167,7 @@ class BlogController extends Controller
                 'blog'=>$blog,
                 'editForm'=>$editForm->createView(),
                 'deleteForm'=>$deleteForm->createView(),
-        
-        ));
+                ));
     }
     
     public function createDeleteForm(Blog $blog)
@@ -160,5 +177,4 @@ class BlogController extends Controller
                     ->setMethod('DELETE')
                     ->getForm();
     }
-    
 }

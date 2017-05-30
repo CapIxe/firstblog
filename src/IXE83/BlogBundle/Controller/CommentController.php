@@ -1,6 +1,13 @@
 <?php
-// src/IXE83/BlogBundle/Controller/CommentController.php
 
+/*
+ * This file is part of the Symfony package.
+ *
+ * (c) Fabien Potencier <fabien@symfony.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 
 namespace IXE83\BlogBundle\Controller;
 
@@ -12,7 +19,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 
 /**
-* Comment controller
 * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
 */
 class CommentController extends Controller
@@ -23,7 +29,9 @@ class CommentController extends Controller
         $blog = $this->getBlog($blog_id);
         
         $comment = new Comment();
+        
         $comment->setBlog($blog);
+        
         $form = $this->createForm(CommentType::class, $comment);
         
         return $this->render('IXE83BlogBundle:Comment:form.html.twig', array(
@@ -31,22 +39,28 @@ class CommentController extends Controller
             'form' => $form->createView()
         ));
     }
-    
+
     public function createAction (Request $request, $blog_id)
     {
         $blog = $this->getBlog($blog_id);
+
         $user = $this->container->get('security.token_storage')->getToken()->getUser();
-        
+
         $comment = new Comment();
+        
         $comment->setBlog($blog);
+        
         $comment->setUser($user);
+        
         $form = $this->createForm(CommentType::class, $comment);
+        
         $form->handleRequest($request);
         
-        if($form->isValid())
-        {
+        if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            
             $em->persist($comment);
+            
             $em->flush();
             
             return $this->redirect($this->generateUrl('IXE83BlogBundle_blog_show', array(
@@ -64,15 +78,14 @@ class CommentController extends Controller
     
     protected function getBlog($blog_id)
     {
-        $em = $this->getDoctrine()
-            ->getManager();
+        $em = $this->getDoctrine()->getManager();
             
         $blog = $em->getRepository('IXE83BlogBundle:Blog')->find($blog_id);
         
-        if(!$blog)
-        {
+        if(!$blog) {
             throw $this->createNotFoundException('Unable to find Blog post.');
         }
-    return $blog;
+        
+        return $blog;
     }
 }

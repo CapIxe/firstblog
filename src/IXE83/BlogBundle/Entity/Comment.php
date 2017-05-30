@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the Symfony package.
+ *
+ * (c) Fabien Potencier <fabien@symfony.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+ 
 namespace IXE83\BlogBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -83,6 +92,7 @@ class Comment
     public function __construct()
     {
         $this->setCreated(new \DateTime());
+        
         $this->setUpdated(new \DateTime());
         
         $this->setApproved(true);
@@ -90,7 +100,6 @@ class Comment
     
     /**
      * @ORM\preUpdate
-     *
      */
     public function setUpdateValue()
     {

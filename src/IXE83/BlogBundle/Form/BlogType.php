@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the Symfony package.
+ *
+ * (c) Fabien Potencier <fabien@symfony.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+ 
 namespace IXE83\BlogBundle\Form;
 
 use IXE83\BlogBundle\Entity\Blog;
@@ -25,15 +34,12 @@ class BlogType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('title', TextType::class)
-                        ->add('blog', CKEditorType::class, array(
-                            'config_name' => 'my_config',))
+                        ->add('blog', CKEditorType::class, array('config_name' => 'my_config',))
                         ->add('image', FileType::class)
-                        ->add('tags', TagsInputType::class,array(
-                            'label'=>'Tags',
-                            'required'=>false,))
+                        ->add('tags', TagsInputType::class, array('label' => 'Tags','required' => false,))
                         ->add('category', EntityType::class, array('class'=>'IXE83BlogBundle:Category',
-                            'choice_label'=> 'name',))
-                        ->add('status', ChoiceType::class, array('choices'=>array('publish'=> true, 'draft'=>false,)));
+                                                                   'choice_label' => 'name',))
+                        ->add('status', ChoiceType::class, array('choices' => array('publish' => true, 'draft' => false,)));
     }
     
     /**
@@ -45,14 +51,4 @@ class BlogType extends AbstractType
             'data_class' => 'IXE83\BlogBundle\Entity\Blog',
         ));
     }
-
-    /**
-     * {@inheritdoc}
-     */
-    /*public function getBlockPrefix()
-    {
-        return 'ixe83_blogbundle_blog';
-    }*/
-
-
 }

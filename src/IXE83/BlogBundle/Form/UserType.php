@@ -1,5 +1,14 @@
 <?php
-// src/IXE83BlogBundle/Form/UserType.php
+
+/*
+ * This file is part of the Symfony package.
+ *
+ * (c) Fabien Potencier <fabien@symfony.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+ 
 namespace IXE83\BlogBundle\Form;
 
 use IXE83\BlogBundle\Entity\User;
@@ -20,26 +29,19 @@ class UserType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-         $permissions = array(
-             'Author'        => 'ROLE_USER',
-              'Admin'        =>'ROLE_ADMIN',
-             );
+        $permissions = array(
+             'Author' => 'ROLE_USER',
+              'Admin' => 'ROLE_ADMIN',
+            );
+        
         $builder
                 ->add('email', EmailType::class)
-                /*->add('plainPassword', RepeatedType::class, array(
-                    'type' => PasswordType::class,
-                    'first_options' => array('label' => 'Password'),
-                    'second_options' => array('label' => 'Repeat password'),
-                    'invalid_message' => 'Passwords does not match. Try again,please'
-                    ))*/
                 ->add('roles', ChoiceType::class, array(
-                                'label' => 'Roles',
-                                'choices'=> $permissions,
-                                'multiple' => true,
-                                'expanded' => true
-                                /*array('Admin','User'),
-                                'choices_as_values'=>array('ROLE_ADMIN','ROLE_USER'),*/
-                                ));
+                    'label' => 'Roles',
+                    'choices'=> $permissions,
+                    'multiple' => true,
+                    'expanded' => true
+                ));
     }
     
     public function getParent()
@@ -64,6 +66,4 @@ class UserType extends AbstractType
     {
         return 'ixe83_blogbundle_user';
     }
-
-
 }

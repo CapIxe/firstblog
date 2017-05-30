@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the Symfony package.
+ *
+ * (c) Fabien Potencier <fabien@symfony.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+ 
 namespace IXE83\BlogBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -10,7 +19,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="tag")
  * @ORM\Entity(repositoryClass="IXE83\BlogBundle\Repository\TagRepository")
  */
-class Tag implements \JsonSerializable
+class Tag //implements \JsonSerializable
 {
     /**
      * @var int
@@ -79,10 +88,10 @@ class Tag implements \JsonSerializable
     /**
      * {@inheritdoc}
      */
-    public function jsonSerialize()
+    /*public function jsonSerialize()
     {
         return $this->name;
-    }
+    }*/
     
     /**
      * @return string
