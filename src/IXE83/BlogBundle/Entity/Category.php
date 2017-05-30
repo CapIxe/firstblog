@@ -23,9 +23,9 @@ class Category
      */
     private $id;
 
-	/**
+    /**
     * @ORM\OneToMany(targetEntity="Blog", mappedBy="category")
-	* 
+    * 
     */
     private $blog;
 
@@ -34,11 +34,11 @@ class Category
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255)
-	 * 
+     * 
      */
     private $name;
-	
-	/**
+    
+    /**
      * Get id
      *
      * @return int
@@ -47,13 +47,13 @@ class Category
     {
         return $this->id;
     }
-	
-	public function __construct()
+    
+    public function __construct()
     {
         $this->blog = new ArrayCollection();
     }
 
-	
+    
     /**
      * Set name
      *
@@ -77,11 +77,11 @@ class Category
     {
         return $this->name;
     }
-	
-	public function __toString()
-	{
-	  return $this->getName();
-	}
+    
+    public function __toString()
+    {
+      return $this->getName();
+    }
     
 
     /**

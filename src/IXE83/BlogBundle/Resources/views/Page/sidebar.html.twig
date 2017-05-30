@@ -1,20 +1,20 @@
 {# src/IXE83/BlogBundle/Resources/views/Page/sidebar.html.twig #}
 
 <section class="section">
-	<header>
-		<h3><a href="{{ path('tag_index') }}">Tags</a></h3>
-	</header>
-	 <p class="tags">
-		{% for tag in tags %}
-			<span class="weight-{# weight #}"><a href="{path('IXE83BlogBundle_homepage')}">{{ tag.name }}</a></span>
-		{% else %}
-			<p>There are no tags</p>
-		{% endfor %}
-	</p> 
-	<h3><a href="{{ path('IXE83BlogBundle_category_index') }}">Categories</a></h3>
-	{% for category in categories %}
-			<div>
-				<p><a href="{{path('IXE83BlogBundle_category_show', { 'id': category.id, 'name': category.name}) }}">{{ category.name }}</a></p>
-			</div>
-	{% endfor %}
+    <header>
+        <h3><a href="{{ path('tag_index') }}">Tags</a></h3>
+    </header>
+     <p class="tags">
+        {% for tag in tags %}
+            <span class="weight-{# weight #}"><a href="{path('IXE83BlogBundle_homepage')}">{{ tag.name }}</a></span>
+        {% else %}
+            <p>There are no tags</p>
+        {% endfor %}
+    </p> 
+    <h3><a href="{{ path('IXE83BlogBundle_category_index') }}">Categories</a></h3>
+    {% for category in categories %}
+            <div>
+                <p><a href="{{path('IXE83BlogBundle_category_show', { 'id': category.id, 'name': category.name}) }}">{{ category.name }}</a></p>
+            </div>
+    {% endfor %}
 </section>

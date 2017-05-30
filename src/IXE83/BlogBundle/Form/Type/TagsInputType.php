@@ -17,7 +17,7 @@ use Symfony\Component\Form\FormView;
 class TagsInputType extends AbstractType
 {
     private $manager;
-	
+    
     public function __construct(ObjectManager $manager)
     {
         $this->manager = $manager;

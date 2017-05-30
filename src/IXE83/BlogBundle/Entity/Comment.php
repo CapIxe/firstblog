@@ -69,26 +69,26 @@ class Comment
 
 
     public static function loadValidatorMetadata(ClassMetadata $metadata)
-	{
-		$metadata->addPropertyConstraint('user', new NotBlank(array(
-			'message' => 'You must enter your name'
-		)));
-		
-		$metadata->addPropertyConstraint('comment', new NotBlank(array(
-			'message' => 'You must enter a comment'
-		)));
-	}
-	
-	
+    {
+        $metadata->addPropertyConstraint('user', new NotBlank(array(
+            'message' => 'You must enter your name'
+        )));
+        
+        $metadata->addPropertyConstraint('comment', new NotBlank(array(
+            'message' => 'You must enter a comment'
+        )));
+    }
+    
+    
     public function __construct()
     {
         $this->setCreated(new \DateTime());
-		$this->setUpdated(new \DateTime());
-		
-		$this->setApproved(true);
+        $this->setUpdated(new \DateTime());
+        
+        $this->setApproved(true);
     }
-	
-	/**
+    
+    /**
      * @ORM\preUpdate
      *
      */

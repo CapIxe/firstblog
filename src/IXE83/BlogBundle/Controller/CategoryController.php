@@ -19,22 +19,22 @@ class CategoryController extends Controller
 {
     /**
      * Lists all category entities.
-	 * 
      * 
-	 * @Security("has_role('ROLE_USER')")
+     * 
+     * @Security("has_role('ROLE_USER')")
      */
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
 
         $categories = $em->getRepository('IXE83BlogBundle:Category')->findAll();
-		$user = $this->container->get('security.token_storage')->getToken()->getUser();
-		
+        $user = $this->container->get('security.token_storage')->getToken()->getUser();
+        
 
         return $this->render('IXE83BlogBundle:Category:index.html.twig', array(
             'categories' => $categories,
-			'username'=>$user,
-			));
+            'username'=>$user,
+            ));
     }
 
     /**
@@ -46,17 +46,17 @@ class CategoryController extends Controller
         $category = new Category();
         $form = $this->createForm('IXE83\BlogBundle\Form\CategoryType', $category);
         $form->handleRequest($request);
-		
+        
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($category);
             $em->flush($category);
-			
+            
 
             return $this->redirectToRoute('category_show', array('id' => $category->getId(),
-														'name' =>$category->getName(),
-				));
+                                                        'name' =>$category->getName(),
+                ));
         }
 
         return $this->render('IXE83BlogBundle:Category:new.html.twig', array(
@@ -72,24 +72,24 @@ class CategoryController extends Controller
     public function showAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
-		
-		$blogs = $em->getRepository('IXE83BlogBundle:Blog')
-					->getCategoryBlogs($id);
-					
-						
-		/**
-		* @var $paginator |Knp|Component|Pager|Paginator
-		*/
-		$paginator = $this->get('knp_paginator');
-		$pagination = $paginator->paginate(
-			$blogs,
-			$request->query->getInt('page', 1),5 
-			);
-		
-		
+        
+        $blogs = $em->getRepository('IXE83BlogBundle:Blog')
+                    ->getCategoryBlogs($id);
+                    
+                        
+        /**
+        * @var $paginator |Knp|Component|Pager|Paginator
+        */
+        $paginator = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $blogs,
+            $request->query->getInt('page', 1),5 
+            );
+        
+        
         return $this->render('IXE83BlogBundle:Page:index.html.twig', array(
-			'blogs' => $pagination
-		));
+            'blogs' => $pagination
+        ));
     }
 
     /**
@@ -110,7 +110,7 @@ class CategoryController extends Controller
 
         return $this->render('IXE83BlogBundle:Category:edit.html.twig', array(
             'category' => $category,
-			'name'=>'category',
+            'name'=>'category',
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));

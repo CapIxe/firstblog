@@ -7,13 +7,13 @@
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
     {% block stylesheets %}
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css"> 
-		<link href='http://fonts.googleapis.com/css?family=Irish+Grover' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css"> 
+        <link href='http://fonts.googleapis.com/css?family=Irish+Grover' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=La+Belle+Aurore' rel='stylesheet' type='text/css'>
         <link href="{{ asset('css/screen.css') }}" type="text/css" rel="stylesheet" />
     {% endblock %}
-	
+    
     <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
 </head>
 <body>
@@ -21,31 +21,31 @@
 <section id="wrapper">
     <header id="header">
         <div class="top">
-		
+        
             {% block navigation %}
                 <nav>
-				<ul class="navigation">
-					{% block user %}
-						{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-							<span style="position: absolute; left:10%; top: 20px;"><li>Wellcome, {{ app.user.username|capitalize }}!</li></span>
-						{% else %}
-							<p class="wellcome">Wellcome to blog!</p>
-						{% endif %}
-					{% endblock %}
+                <ul class="navigation">
+                    {% block user %}
+                        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                            <span style="position: absolute; left:10%; top: 20px;"><li>Wellcome, {{ app.user.username|capitalize }}!</li></span>
+                        {% else %}
+                            <p class="wellcome">Wellcome to blog!</p>
+                        {% endif %}
+                    {% endblock %}
                     
-						{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-							{% block author %}{% endblock %}
-						{% endif %}	
-						<li><a href="{{ path('IXE83BlogBundle_homepage')}}">Home</a></li>
+                        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                            {% block author %}{% endblock %}
+                        {% endif %}    
+                        <li><a href="{{ path('IXE83BlogBundle_homepage')}}">Home</a></li>
                         <li><a href="{{ path('IXE83BlogBundle_about')}}">About</a></li>
                         <li><a href="{{ path('IXE83BlogBundle_contact')}}">Contact</a></li>
-						{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-							<li><a href="{{ path('fos_user_security_logout') }}">
-									{{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
-							</a></li>
-						{% else %}
-							<li><a href="{{ path('fos_user_security_login') }}">Login</a></li>
-						{% endif %}
+                        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                            <li><a href="{{ path('fos_user_security_logout') }}">
+                                    {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
+                            </a></li>
+                        {% else %}
+                            <li><a href="{{ path('fos_user_security_login') }}">Login</a></li>
+                        {% endif %}
                     </ul>
                 </nav>
             {% endblock %}

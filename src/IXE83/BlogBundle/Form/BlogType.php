@@ -25,16 +25,15 @@ class BlogType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('title', TextType::class)
-						->add('blog', CKEditorType::class, array(
-								'config_name' => 'my_config',
-								))
-						->add('image', FileType::class)
-						->add('tags', TagsInputType::class,array(
-										'label'=>'Tags',
-										'required'=>false,))
-						->add('category', EntityType::class, array('class'=>'IXE83BlogBundle:Category',
-										'choice_label'=> 'name',))
-						->add('status', ChoiceType::class, array('choices'=>array('publish'=> true, 'draft'=>false,)));
+                        ->add('blog', CKEditorType::class, array(
+                            'config_name' => 'my_config',))
+                        ->add('image', FileType::class)
+                        ->add('tags', TagsInputType::class,array(
+                            'label'=>'Tags',
+                            'required'=>false,))
+                        ->add('category', EntityType::class, array('class'=>'IXE83BlogBundle:Category',
+                            'choice_label'=> 'name',))
+                        ->add('status', ChoiceType::class, array('choices'=>array('publish'=> true, 'draft'=>false,)));
     }
     
     /**

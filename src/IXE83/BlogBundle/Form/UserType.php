@@ -20,33 +20,33 @@ class UserType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-		 $permissions = array(
+         $permissions = array(
              'Author'        => 'ROLE_USER',
-              'Admin'		=>'ROLE_ADMIN',
+              'Admin'        =>'ROLE_ADMIN',
              );
         $builder
-				->add('email', EmailType::class)
-				/*->add('plainPassword', RepeatedType::class, array(
-					'type' => PasswordType::class,
-					'first_options' => array('label' => 'Password'),
-					'second_options' => array('label' => 'Repeat password'),
-					'invalid_message' => 'Passwords does not match. Try again,please'
-					))*/
-				->add('roles', ChoiceType::class, array(
-								'label' => 'Roles',
-								'choices'=> $permissions,
-								'multiple' => true,
-								'expanded' => true
-								/*array('Admin','User'),
-								'choices_as_values'=>array('ROLE_ADMIN','ROLE_USER'),*/
-								));
+                ->add('email', EmailType::class)
+                /*->add('plainPassword', RepeatedType::class, array(
+                    'type' => PasswordType::class,
+                    'first_options' => array('label' => 'Password'),
+                    'second_options' => array('label' => 'Repeat password'),
+                    'invalid_message' => 'Passwords does not match. Try again,please'
+                    ))*/
+                ->add('roles', ChoiceType::class, array(
+                                'label' => 'Roles',
+                                'choices'=> $permissions,
+                                'multiple' => true,
+                                'expanded' => true
+                                /*array('Admin','User'),
+                                'choices_as_values'=>array('ROLE_ADMIN','ROLE_USER'),*/
+                                ));
     }
     
-	public function getParent()
+    public function getParent()
     {
         return 'FOS\UserBundle\Form\Type\ProfileFormType';
     }
-	
+    
     /**
      * {@inheritdoc}
      */

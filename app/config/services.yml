@@ -7,7 +7,7 @@ services:
 #    service_name:
 #        class: AppBundle\Directory\ClassName
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
-   app.form.type.tagsinput:
+    app.form.type.tagsinput:
         class: IXE83\BlogBundle\Form\Type\TagsInputType
         arguments: ['@doctrine.orm.entity_manager']
         tags:

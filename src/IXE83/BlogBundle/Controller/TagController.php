@@ -23,16 +23,16 @@ class TagController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $tags = $em->getRepository('IXE83BlogBundle:Tag')->findAll();
-		
-		/**
-		* @var $paginator |Knp|Component|Pager|Paginator
-		*/
-		$paginator = $this->get('knp_paginator');
-		$pagination = $paginator->paginate(
-			$tags,
-			$request->query->getInt('page', 1),10 
-			);
-		
+        
+        /**
+        * @var $paginator |Knp|Component|Pager|Paginator
+        */
+        $paginator = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $tags,
+            $request->query->getInt('page', 1),10 
+            );
+        
         return $this->render('IXE83BlogBundle:Tag:index.html.twig', array(
             'tags' => $pagination,
         ));

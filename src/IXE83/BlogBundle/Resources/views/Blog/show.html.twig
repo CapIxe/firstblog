@@ -5,43 +5,43 @@
 {% block new %}<li>Create new post</li>{% endblock %}
 
 {% block body %}
-	
-	<article class="blog">
-		<header>		
-			<h2>{{ blog.title }}</h2>
-		</header>
-		<img src="{{ asset(['images/', blog.image]|join )}}" alt="{{ blog.title }} image not found" class="large" />
-		<div>
-			<p>{{ blog.blog }}</p>
-		</div>
-		<div>
-			<p>Post by: {{ user }}</p>
-		</div>
-		<div>
-			<p>Tags: 
-				{% for tag in blog.tags %}
-					{{tag}}
-				{% endfor %}
-			</p>
-		</div>
-		<div class="date">
-			<time datetime="{{ blog.created|date('c') }}">{{ blog.created|date('j F Y') }}</time>
-			{# <time datetime="{{ blog.updated|date('c') }}">{{ blog.updated|date('j F Y') }}</time> #}
-		</div>
-		<div>
-		{% if (blog.isAuthor(app.user)) or (is_granted('ROLE_ADMIN')) %}
-			<p><a href="{{ path('IXE83BlogBundle_blog_edit',{ 'id': blog.id, 'slug': blog.slug }) }}">Edit</a></p>
-		{% endif %}
-			<p><a href="{{ path('IXE83BlogBundle_homepage') }}">Back to the list</a></p>
-		</div>
-	</article>
-	<section class="comments" id="comments">
-		<section class="previous-comments">
-			<h3>Comments</h3>
-			{% include 'IXE83BlogBundle:Comment:index.html.twig' with { 'comments': comments } %}
-		</section>
-		<h3>Add comment</h3>
-		{{ render(controller('IXE83BlogBundle:Comment:new', { 'blog_id': blog.id })) }}
-	</section>
+    
+    <article class="blog">
+        <header>        
+            <h2>{{ blog.title }}</h2>
+        </header>
+        <img src="{{ asset(['images/', blog.image]|join )}}" alt="{{ blog.title }} image not found" class="large" />
+        <div>
+            <p>{{ blog.blog }}</p>
+        </div>
+        <div>
+            <p>Post by: {{ user }}</p>
+        </div>
+        <div>
+            <p>Tags: 
+                {% for tag in blog.tags %}
+                    {{tag}}
+                {% endfor %}
+            </p>
+        </div>
+        <div class="date">
+            <time datetime="{{ blog.created|date('c') }}">{{ blog.created|date('j F Y') }}</time>
+            {# <time datetime="{{ blog.updated|date('c') }}">{{ blog.updated|date('j F Y') }}</time> #}
+        </div>
+        <div>
+        {% if (blog.isAuthor(app.user)) or (is_granted('ROLE_ADMIN')) %}
+            <p><a href="{{ path('IXE83BlogBundle_blog_edit',{ 'id': blog.id, 'slug': blog.slug }) }}">Edit</a></p>
+        {% endif %}
+            <p><a href="{{ path('IXE83BlogBundle_homepage') }}">Back to the list</a></p>
+        </div>
+    </article>
+    <section class="comments" id="comments">
+        <section class="previous-comments">
+            <h3>Comments</h3>
+            {% include 'IXE83BlogBundle:Comment:index.html.twig' with { 'comments': comments } %}
+        </section>
+        <h3>Add comment</h3>
+        {{ render(controller('IXE83BlogBundle:Comment:new', { 'blog_id': blog.id })) }}
+    </section>
 
 {% endblock %}

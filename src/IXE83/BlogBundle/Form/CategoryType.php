@@ -16,10 +16,10 @@ class CategoryType extends AbstractType
         $builder->add('name');
     }
     
-	public function getName()
-	{
-		return 'name';
-	}
+    public function getName()
+    {
+        return 'name';
+    }
     /**
      * {@inheritdoc}
      */

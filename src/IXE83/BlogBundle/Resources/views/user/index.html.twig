@@ -1,25 +1,25 @@
 {% extends 'base.html.twig' %}
 
 {% block stylesheets%}
-	{{ parent() }}
-	<link href="{{asset('bundles/ixe83blog/css/blog.css')}}" type="text/css" rel="stylesheet">
-	<link href="{{asset('bundles/ixe83blog/css/sidebar.css')}}" type="text/css" rel="stylesheet">
+    {{ parent() }}
+    <link href="{{asset('bundles/ixe83blog/css/blog.css')}}" type="text/css" rel="stylesheet">
+    <link href="{{asset('bundles/ixe83blog/css/sidebar.css')}}" type="text/css" rel="stylesheet">
 {%endblock%}
 
 {% block body %}
     <header>
-		<h1>Users list</h1>
-	</header>
+        <h1>Users list</h1>
+    </header>
     <div class="blog">
         {% for user in users %}
-			<ul class="users">
-				<li class="column1">{{ user.username }}</li>
-				<li class="column2">{{ user.roles.0 }}</li>
-				<li class="column1"><a href="{{ path('user_edit', { 'id': user.id, 'name': user.username }) }}">edit</a></li>
-				
-			</ul>
+            <ul class="users">
+                <li class="column1">{{ user.username }}</li>
+                <li class="column2">{{ user.roles.0 }}</li>
+                <li class="column1"><a href="{{ path('user_edit', { 'id': user.id, 'name': user.username }) }}">edit</a></li>
+                
+            </ul>
             
         {% endfor %}
-	</div>
+    </div>
         
 {% endblock %}

@@ -10,13 +10,13 @@
     {{ form_start(editForm, {'attr':{'class':'blogger'} }) }}
         {{ form_widget(editForm) }}
     {{ form_end(editForm) }}
-	{{ form_start(deleteForm) }}
-		<input type="submit" value="Delete post">
-	{{ form_end(deleteForm) }}
-	<br/>
+    {{ form_start(deleteForm) }}
+        <input type="submit" value="Delete post">
+    {{ form_end(deleteForm) }}
+    <br/>
         <div>
-			<p>
-				<a href="{{ path('IXE83BlogBundle_blog_show', {'id': blog.id, 'slug':blog.slug}) }}">Back to the list</a>
-			</p>
-		</div>
+            <p>
+                <a href="{{ path('IXE83BlogBundle_blog_show', {'id': blog.id, 'slug':blog.slug}) }}">Back to the list</a>
+            </p>
+        </div>
 {% endblock %}

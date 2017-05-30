@@ -53,16 +53,16 @@ class Blog
      * @ORM\Column(name="image", type="string", length=40)
      */
     protected $image;
-	
-	/**
-     * @ORM\ManyToMany(targetEntity="Tag", inversedBy="blogs", cascade={"persist"})
-	 * @ORM\JoinTable(name="blog_tag")
-     */
-    protected $tags;
     
-	/**
-	* @ORM\OneToMany(targetEntity="Comment", mappedBy="blog")
-	*/
+    /**
+     * @ORM\ManyToMany(targetEntity="Tag", inversedBy="blogs", cascade={"persist"})
+     * @ORM\JoinTable(name="blog_tag")
+     */
+    public $tags;
+    
+    /**
+    * @ORM\OneToMany(targetEntity="Comment", mappedBy="blog")
+    */
     protected $comments;
 
     /**
@@ -79,25 +79,25 @@ class Blog
      */
     protected $updated;
 
-	/**
+    /**
      * @ORM\Column(type="string")
      */
     protected $slug;
-	
-	/**
-	* @var string
-	* @ORM\ManyToOne(targetEntity="Category", inversedBy="blog")
-	* @ORM\JoinColumn(name="category_id", referencedColumnName="id")
-	*/
-	public $category;
-	
-	/**
-	* @var bool
-	*
-	* @ORM\Column(name="status", type="boolean")
-	*/
-	public $status = false;
-	
+    
+    /**
+    * @var string
+    * @ORM\ManyToOne(targetEntity="Category", inversedBy="blog")
+    * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
+    */
+    public $category;
+    
+    /**
+    * @var bool
+    *
+    * @ORM\Column(name="status", type="boolean")
+    */
+    public $status = false;
+    
     /**
      * Get id
      *
@@ -118,7 +118,7 @@ class Blog
     public function setTitle($title)
     {
         $this->title = $title;
-		$this->setSlug($this->title);
+        $this->setSlug($this->title);
     }
 
     /**
@@ -154,17 +154,17 @@ class Blog
     {
         return $this->author;
     }
-	
-	/**
+    
+    /**
      * Is the given User the author of this Post?
      *
      * @return bool
      */
-	 public function isAuthor(User $user = null)
+     public function isAuthor(User $user = null)
     {
         return $user && $user->getUsername() == $this->getAuthor();
     }
-	
+    
     /**
      * Set blog
      *
@@ -186,10 +186,10 @@ class Blog
      */
     public function getBlog($length = null)
     {
-		if (false === is_null($length) && $length>0)
-			return substr($this->blog, 0, $length);
-		else
-			return $this->blog;
+        if (false === is_null($length) && $length>0)
+            return substr($this->blog, 0, $length);
+        else
+            return $this->blog;
     }
 
     /**
@@ -215,20 +215,20 @@ class Blog
     {
         return $this->image;
     }
-	
-	/**
-	* Set tags
-	*
-	* @param string $tags
-	*
-	* @return Tags
-	*/
-	public function setTags($tags)
-	{
-		$this->tags = $tags;
-	}
-	
-	/**
+    
+    /**
+    * Set tags
+    *
+    * @param string $tags
+    *
+    * @return Tags
+    */
+    public function setTags($tags)
+    {
+        $this->tags = $tags;
+    }
+    
+    /**
      * Get tags
      *
      * @return Tag[]|ArrayCollection
@@ -237,51 +237,51 @@ class Blog
     {
         return $this->tags;
     }
-	
-	/**
+    
+    /**
      * @param Tag $tag
      */
-	 public function addTag(Tag $tag)
+     public function addTag(Tag $tag)
     {
         /*if(!$this->tags->contains($tag)){
-		$this->tags->add($tag);
-		}*/
-		$tag->addBlog($this);
-		$this->tags[] = $tag;
+        $this->tags->add($tag);
+        }*/
+        $tag->addBlog($this);
+        $this->tags[] = $tag;
     }
 
-	/**
+    /**
      * @param Tag $tag
      */
     public function removeTag(Tag $tag)
     {
-		if (!$this->hasTag($tag)){
+        if (!$this->hasTag($tag)){
         $this->tags->removeElement($tag);
-		}
+        }
     }
-	
-	/**
-	* Set status
-	*
-	* @param boolean $status
-	*
-	* return Status
-	*/
-	public function setStatus($status)
-	{
-		$this->status = $status;
-	}
-	
-	/**
+    
+    /**
+    * Set status
+    *
+    * @param boolean $status
+    *
+    * return Status
+    */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+    }
+    
+    /**
      * Get status
      *
      * @return boolean
      */
-	 public function getStatus()
-	 {
-		 return $this->status;
-	 }
-	 
+     public function getStatus()
+     {
+         return $this->status;
+     }
+     
     /**
      * Set comments
      *
@@ -353,23 +353,23 @@ class Blog
     {
         return $this->updated;
     }
-	
-	public function __construct()
-	{
-		$this->comments = new ArrayCollection();
-		$this->tags = new ArrayCollection();
-		
-		$this->setCreated(new \DateTime());
-		$this->setUpdated(new \DateTime());
-	}
-	
-	/**
-	* @ORM\PreUpdate
-	*/
-	public function setUpdatedValue()
-	{
-		$this->setUpdated(new \DateTime());
-	}
+    
+    public function __construct()
+    {
+        $this->comments = new ArrayCollection();
+        $this->tags = new ArrayCollection();
+        
+        $this->setCreated(new \DateTime());
+        $this->setUpdated(new \DateTime());
+    }
+    
+    /**
+    * @ORM\PreUpdate
+    */
+    public function setUpdatedValue()
+    {
+        $this->setUpdated(new \DateTime());
+    }
 
     /**
      * Add comment
@@ -394,11 +394,11 @@ class Blog
     {
         $this->comments->removeElement($comment);
     }
-	
-	public function __toString()
-	{
-		return $this->getTitle();
-	}
+    
+    public function __toString()
+    {
+        return $this->getTitle();
+    }
 
     /**
      * Set slug
@@ -421,18 +421,18 @@ class Blog
     {
         return $this->slug;
     }
-	
-	public function setCategory(Category $category)
-	{
-		$this->category = $category;
-	}
-	
-	public function getCategory()
-	{
-		return $this->category;
-	}
-	
-	/**
+    
+    public function setCategory(Category $category)
+    {
+        $this->category = $category;
+    }
+    
+    public function getCategory()
+    {
+        return $this->category;
+    }
+    
+    /**
      * Remove category
      *
      * @param \IXE83\BlogBundle\Entity\Category $category
@@ -441,32 +441,32 @@ class Blog
     {
         $this->category->removeElement($category);
     }
-	
-	
-	public function slugify($text)
-	{
-		// replace non letter or digits by -
-		$text = preg_replace('#[^\\pL\d]+#u', '-', $text);
-	
-		//trim
-		$text = trim($text, '-');
-		
-		//transliterate
-		if(function_exists('iconv'))
-		{
-			$text = iconv('utf-8','us-ascii//TRANSLIT', $text);
-		}
-		
-		// lowercase
-		$text = strtolower($text);
-		
-		// remove unwanted characters
-		$text = preg_replace('#[^-\w]+#', '', $text);
-		
-		if(empty($text))
-		{
-			return 'n-a';
-		}
-	return $text;
-	}
+    
+    
+    public function slugify($text)
+    {
+        // replace non letter or digits by -
+        $text = preg_replace('#[^\\pL\d]+#u', '-', $text);
+    
+        //trim
+        $text = trim($text, '-');
+        
+        //transliterate
+        if(function_exists('iconv'))
+        {
+            $text = iconv('utf-8','us-ascii//TRANSLIT', $text);
+        }
+        
+        // lowercase
+        $text = strtolower($text);
+        
+        // remove unwanted characters
+        $text = preg_replace('#[^-\w]+#', '', $text);
+        
+        if(empty($text))
+        {
+            return 'n-a';
+        }
+    return $text;
+    }
 }

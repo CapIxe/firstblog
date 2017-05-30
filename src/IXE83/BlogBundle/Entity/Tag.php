@@ -27,22 +27,22 @@ class Tag implements \JsonSerializable
      * @ORM\Column(name="name", type="string", length=255, unique=true)
      */
     protected $name;
-	
-	/**
+    
+    /**
      * @ORM\ManyToMany(targetEntity="Blog", mappedBy="tags")
      */
     protected $blogs;
 
-	public function __construct()
-	{
+    public function __construct()
+    {
         $this->blogs = new ArrayCollection();
     }
-	
-	public function addBlog (Blog $blog)
-	{
-		$this->blogs[] = $blog;
-	}
-	
+    
+    public function addBlog (Blog $blog)
+    {
+        $this->blogs[] = $blog;
+    }
+    
     /**
      * Get id
      *
@@ -76,21 +76,21 @@ class Tag implements \JsonSerializable
     {
         return $this->name;
     }
-	/**
+    /**
      * {@inheritdoc}
      */
     public function jsonSerialize()
     {
         return $this->name;
     }
-	
-	/**
+    
+    /**
      * @return string
      */
-	public function __toString()
-	{
+    public function __toString()
+    {
     return $this->name;
-	}
+    }
 
     /**
      * Remove blog

@@ -23,7 +23,7 @@ class TagArrayToStringTransformer implements DataTransformerInterface
         /* @var Tag[] $array */
         return implode(',', $array);
     }
-	
+    
     /**
      * {@inheritdoc}
      */

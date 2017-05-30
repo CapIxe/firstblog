@@ -22,8 +22,8 @@ class UserController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $users = $em->getRepository('IXE83BlogBundle:User')->findAll();
-		
-		return $this->render('IXE83BlogBundle:User:index.html.twig', array(
+        
+        return $this->render('IXE83BlogBundle:User:index.html.twig', array(
             'users' => $users,
         ));
     }

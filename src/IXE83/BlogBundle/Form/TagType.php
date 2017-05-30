@@ -10,7 +10,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class TagType extends AbstractType
 {
-	public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('name', TextType::class);
     }
@@ -21,5 +21,5 @@ class TagType extends AbstractType
             'data_class' => 'IXE83\BlogBundle\Entity\Tag',
         ));
     }
-	
+    
 }
