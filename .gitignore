@@ -1,4 +1,4 @@
-!/app/config/parameters.yml
+/app/config/parameters.yml
 /build/
 /phpunit.xml
 !/var/*
@@ -18,4 +18,3 @@
 /bin/
 /bower_components/
 /web/images/
-!/vendor/friendsofsymfony/user-bundle/
