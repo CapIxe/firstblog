@@ -96,7 +96,7 @@ class CategoryController extends Controller
     {
         $deleteForm = $this->createDeleteForm($category);
         
-        $editForm = $this->createForm('IXE83\BlogBundle\Form\CategoryType', $category);\
+        $editForm = $this->createForm('IXE83\BlogBundle\Form\CategoryType', $category);
         
         $editForm->handleRequest($request);
 

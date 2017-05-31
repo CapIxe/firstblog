@@ -1,5 +1,11 @@
 fos_user:
     resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+
+IXE83BlogBundle_default:
+    path:     /
+    defaults: { _controller: "IXE83BlogBundle:Default:index" }
+    requirements:
+         methods:  GET
     
 ixe83_blog:
     resource: "@IXE83BlogBundle/Resources/config/routing.yml"

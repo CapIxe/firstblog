@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+    {% block stylesheets%}
+        {{ parent() }}
+        <link href="{{asset('bundles/ixe83blog/css/blog.css')}}" type="text/css" rel="stylesheet">
+        <link href="{{asset('bundles/ixe83blog/css/sidebar.css')}}" type="text/css" rel="stylesheet">
+    {%endblock%}
+
+    {% block body %}
+        <header>
+            <h1>Welcome to blog!</h1>
+        </header>
+        <div class="blog">
+            <ul class="users">
+                <li class="column1"><a href="{{ path('IXE83BlogBundle_homepage') }}">To posts</a></li>
+                <li class="column2"><a href="{{ path('admin_index') }}">To control panel</a></li>
+            </ul>
+        </div>
+    {% endblock %}
